@@ -65,3 +65,9 @@ Use the same trees as in the previous question.
 What can you say about the syntactic differences between the languages?
 
 ![Word alignment](./word_alignment_scaled.png)
+
+## Chapter 2, design morphological types
+
+1. It is enough to cover NOUN, ADJ, and VERB.
+2. Use a traditional grammar book or a Wikipedia article to identify the inflectional and inherent features.
+3. Then use data from PUD to check which morphological features actually occur in the treebank for that language.
