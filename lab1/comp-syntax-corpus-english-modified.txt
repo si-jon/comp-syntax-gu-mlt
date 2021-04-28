@@ -165,213 +165,215 @@ position	word	postag  head	label
 21	.	PUNCT
 
 # text = he collected cards and traded them with the other boys
-1	he:NOUN
-2	collected:VERB
-3	cards:NOUN
-4	and:CCONJ
-5	traded:VERB
-6	them:PRON
-7	with:ADP
-8	the:DET
-9	other:ADJ
-10	boys:NOUN
+1	he	NOUN
+2	collected	VERB
+3	cards	NOUN
+4	and	CCONJ
+5	traded	VERB
+6	them	PRON
+7	with	ADP
+8	the	DET
+9	other	ADJ
+10	boys	NOUN
 
 # text = this crime carries a penalty of five years in prison
-1	this:DET
-2	crime:NOUN
-3	carries:VERB
-4	a:DET
-5	penalty:NOUN
-6	of:ADP
-7	five:NUM
-8	years:NOUN
-9	in:ADP
-10	prison:NOUN
+1	this	DET
+2	crime	NOUN
+3	carries	VERB
+4	a	DET
+5	penalty	NOUN
+6	of	ADP
+7	five	NUM
+8	years	NOUN
+9	in	ADP
+10	prison	NOUN
 
 # text = the news was carried to every village in the province
-1	the:DET
-2	news:NOUN
-3	was:AUX
-4	carried:VERB
-5	to:ADP
-6	every:ADJ
-7	village:NOUN
-8	in:ADP
-9	the:DET
-10	province:NOUN
+1	the	DET
+2	news	NOUN
+3	was	AUX
+4	carried	VERB
+5	to	ADP
+6	every	ADJ
+7	village	NOUN
+8	in	ADP
+9	the	DET
+10	province	NOUN
 
 # text = I carry these thoughts in the back of my head
-1	I:PRON
-2	carry:VERB
-3	these:DET
-4	thoughts:NOUN
-5	in:ADP
-6	the:DET
-7	back:ADP
-8	of:ADP
-9	my:PRON
-10	head:NOUN
+1	I	PRON
+2	carry	VERB
+3	these	DET
+4	thoughts	NOUN
+5	in	ADP
+6	the	DET
+7	back	ADP
+8	of	ADP
+9	my	PRON
+10	head	NOUN
 
 # text = Adam would have been carried over into the life eternal
-1	Adam:PROPN
-2	would:AUX
-3	have:AUX
-4	been:AUX
-5	carried:VERB
-6	over:ADP
-7	into:ADP
-8	the:DET
-9	life:NOUN
-10	eternal:ADJ
+1	Adam	PROPN
+2	would	AUX
+3	have	AUX
+4	been	AUX
+5	carried	VERB
+6	over	ADP
+7	into	ADP
+8	the	DET
+9	life	NOUN
+10	eternal	ADJ
 
 # text = the casings had rotted away and had to be replaced
-1	the:DET
-2	casings:NOUN
-3	had:AUX
-4	rotted:VERB
-5	away:ADV
-6	and:CCONJ
-7	had:AUX
-8	to:SCONJ
-9	be:AUX
-10	replaced:VERB
+1	the	DET
+2	casings	NOUN
+3	had	AUX
+4	rotted	VERB
+5	away	ADV
+6	and	CCONJ
+7	had	AUX
+8	to	SCONJ
+9	be	AUX
+10	replaced	VERB
 
 # text = she was incensed that this chit of a girl should dare to make a fool of her in front of the class
-1	she:NOUN
-2	was:AUX
-3	incensed:VERB
-4	that:SCONJ
-5	this:DET
-6	chit:NOUN
-7	of:ADP
-8	a:DET
-9	girl:NOUN
-10	should:AUX
-11	dare:VERB
-12	to:PART
-13	make:VERB
-14	a:DET
-15	fool:NOUN
-16	of:ADP
-17	her:PRON
-18	in:ADP
-19	front:NOUN
-20	of:ADP
-21	the:DET
-22	class:NOUN
+1	she	NOUN
+2	was	AUX
+3	incensed	VERB
+4	that	SCONJ
+5	this	DET
+6	chit	NOUN
+7	of	ADP
+8	a	DET
+9	girl	NOUN
+10	should	AUX
+11	dare	VERB
+12	to	PART
+13	make	VERB
+14	a	DET
+15	fool	NOUN
+16	of	ADP
+17	her	PRON
+18	in	ADP
+19	front	NOUN
+20	of	ADP
+21	the	DET
+22	class	NOUN
 
 # text = the landslide he had in the electoral college obscured the narrowness of a victory based on just 43% of the popular vote
-1	the:DET
-2	landslide:NOUN
-3	he:PRON
-4	had:VERB
-5	in:ADP
-6	the:DET
-7	electoral:NOUN
-8	college:NOUN
-9	obscured
-10	the
-11	narrowness
-12	of
-13	a
-14	victory
-15	based
-16	on
-17	just
-18	43%
-19	of
-20	the
-21	popular
-22	vote
+1	the	DET
+2	landslide	NOUN
+3	he	PRON
+4	had	VERB
+5	in	ADP
+6	the	DET
+7	electoral	NOUN
+8	college	NOUN
+9	obscured	VERB
+10	the	DET
+11	narrowness	NOUN
+12	of	ADP
+13	a	DET
+14	victory	NOUN
+15	based	VERB
+16	on	ADP
+17	just	ADV
+18	43	NUM
+19	%	SYM
+20	of	ADP
+21	the	DET
+22	popular	ADJ
+23	vote	NOUN
 
 # text = United States troops now carry atropine and autoinjectors in their first-aid kits to use in case of organophosphate nerve agent poisoning
-1	United
-2	States
-3	troops
-4	now
-5	carry
-6	atropine
-7	and
-8	autoinjectors
-9	in
-10	their
-11	first-aid
-12	kits
-13	to
-14	use
-15	in
-16	case
-17	of
-18	organophosphate
-19	nerve
-20	agent
-21	poisoning
+1	United	PROPN
+2	States	PROPN
+3	troops	NOUN
+4	now	ADV
+5	carry	VERB
+6	atropine	NOUN
+7	and	CCONJ
+8	autoinjectors	NOUN
+9	in	ADP
+10	their	PRON
+11	first-aid	NOUN
+12	kits	NOUN
+13	to	ADP
+14	use	VERB
+15	in	ADP
+16	case	NOUN
+17	of	DP
+18	organophosphate	NOUN
+19	nerve	NOUN
+20	agent	NOUN
+21	poisoning	NOUN
 
 # text = he may accomplish by craft in the long run what he cannot do by force and violence in the short one
-1	he
-2	may
-3	accomplish
-4	by
-5	craft
-6	in
-7	the
-8	long
-9	run
-10	what
-11	he
-12	cannot
-13	do
-14	by
-15	force
-16	and
-17	violence
-18	in
-19	the
-20	short
-21	one
+1	he	PRON
+2	may	AUX
+3	accomplish	VERB
+4	by	SCONJ
+5	craft	NOUN
+6	in	ADP
+7	the	DET
+8	long	ADJ
+9	run	NOUN
+10	what	PRON
+11	he	PRON
+12	can	AUX
+13	not	PART
+14	do	VERB
+15	by	SCONJ
+16	force	NOUN
+17	and	CCONJ
+18	violence	NOUN
+19	in	ADP
+20	the	DET
+21	short	ADJ
+22	one	NUM
 
 # text = it has been said that only a hierarchical society with a leisure class at the top can produce works of art
-1	it
-2	has
-3	been
-4	said
-5	that
-6	only
-7	a
-8	hierarchical
-9	society
-10	with
-11	a
-12	leisure
-13	class
-14	at
-15	the
-16	top
-17	can
-18	produce
-19	works
-20	of
-21	art
+1	it	PRON
+2	has	AUX
+3	been	AUX
+4	said	VERB
+5	that	SCONJ
+6	only	ADV
+7	a	DET
+8	hierarchical	ADJ
+9	society	NOUN
+10	with	ADP
+11	a	DET
+12	leisure	NOUN
+13	class	NOUN
+14	at	ADP
+15	the	DET
+16	top	NOUN
+17	can	AUX
+18	produce	VERB
+19	works	NOUN
+20	of	ADP
+21	art	NOUN
 
 # text = his ingenuous explanation that he would not have burned the church if he had not thought the bishop was in it
-1	his
-2	ingenuous
-3	explanation
-4	that
-5	he
-6	would
-7	not
-8	have
-9	burned
-10	the
-11	church
-12	if
-13	he
-14	had
-15	not
-16	thought
-17	the
-18	bishop
-19	was
-20	in
-21	it
+1	his	PRON
+2	ingenuous	ADJ
+3	explanation	NOUN
+4	that	SCONJ
+5	he	PRON
+6	would	AUX
+7	not	PART
+8	have	AUX
+9	burned	VERB
+10	the	DET
+11	church	NOUN
+12	if	SCONJ
+13	he	PRON
+14	had	AUX
+15	not	PART
+16	thought	VERB
+17	the	DET
+18	bishop	NOUN
+19	was	VERB
+20	in	ADP
+21	it	PRON
