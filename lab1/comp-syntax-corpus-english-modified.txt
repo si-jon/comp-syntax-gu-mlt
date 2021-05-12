@@ -1,33 +1,37 @@
 position	word	postag  head	label
+# position    word   _    postag   _   _   head   label   _   _
+# 7       world   _       NOUN    _       _       4       nmod    _       _
 
 # text = Who are they?
-1	Who RON	
-2	are AUX
-3	they	PRON
-4	?	PUNCT
+1	Who PRON	_	_	0:root
+2	are AUX	_	_	1:cop
+3	they	PRON	_	_	1:nsubj
+4	?	PUNCT	_	_	1:punct
 
 # text = A small town with two minarets glides by.
-1	A	DET
-2	small	ADJ
-3	town	NOUN
-4	with	ADP
-5	two	NUM
-6	minarets	NOUN
-7	glides	VERB
-8	by	ADV
-9	.	PUNCT
+1	A	DET	_	_	3:det
+2	small	ADJ	_	_	3:amod
+3	town	NOUN	_	_	7:nsubj
+4	with	ADP	_	_	6:case
+5	two	NUM	_	_	6:nummod
+6	minarets	NOUN	_	_	3:nmod
+7	glides	VERB	_	_	0:root
+8	by	ADV	_	_	7:advmod
+9	.	PUNCT	_	_	7:punct
 
-1	I	PRON
-2	was	AUX
-3	just	ADV
-4	a	DET
-5	boy	NOUN 
-6	with	ADP 
-7	muddy	ADJ 
-8	shoes	NOUN 
-9	.	PUNCT
+# text = I was just a boy with muddy shoes
+1	I	PRON	_	_	5:nsubj
+2	was	AUX	_	_	5:cop
+3	just	ADV	_	_	5:advmod
+4	a	DET	_	_	5:det
+5	boy	NOUN	_	_	0:root
+6	with	ADP	_	_	8:case
+7	muddy	ADJ	_	_	8:amod
+8	shoes	NOUN	_	_	5:nmod
+9	.	PUNCT	_	_	5:punct
 
-1	Shenzhen	PROPN 
+# text = Shenzhen's traffic police have opted for unconventional penalties before.
+1	Shenzhen	PROPN
 2	's	PART
 3	traffic	NOUN
 4	police	NOUN
@@ -38,8 +42,8 @@ position	word	postag  head	label
 9	penalties	NOUN
 10	before	ADV
 11	.	PUNCT
-12	.	PUNCT
 
+# text = The study of volcanoes is called volcanology, sometimes spelled vulcanology.
 1	The	DET
 2	study	NOUN
 3	of	ADP
@@ -53,6 +57,7 @@ position	word	postag  head	label
 11	vulcanology	NOUN
 12	.	PUNCT
 
+# text = It was conducted just off the Mexican coast from April to June.
 1	It	PRON
 2	was	AUX
 3	conducted	VERB
@@ -67,6 +72,7 @@ position	word	postag  head	label
 12	June	PROPN
 13	.	PUNCT
 
+# text = "Her voice literally went around the world," Leive said.
 1	"	PUNCT
 2	Her	PRON
 3	voice	NOUN
@@ -81,6 +87,7 @@ position	word	postag  head	label
 12	said	VERB
 	.	PUNCT
 
+# text = A witness told police that the victim had attacked the suspect in April.
 1	A	DET
 2	witness	NOUN
 3	told	VERB
@@ -96,6 +103,7 @@ position	word	postag  head	label
 13	April	PROPN
 14	.	PUNCT
 
+# text = It's most obvious when a celebrity's name is initially quite rare.
 1	It	PRON
 2	's	AUX
 3	most	ADV
@@ -111,6 +119,7 @@ position	word	postag  head	label
 13	rare	ADJ
 14	.	PUNCT
 
+# text = This has not stopped investors flocking to put their money in the funds.
 1	This	PRON
 2	has	AUX
 3	not	PART
@@ -126,6 +135,7 @@ position	word	postag  head	label
 13	funds	NOUN
 14	.	PUNCT
 
+# text = This discordance between economic data and political rhetoric is familiar, or should be.
 1	This	DET
 2	discordance	NOUN
 3	between	ADP
@@ -133,7 +143,7 @@ position	word	postag  head	label
 5	data	NOUN
 6	and	CCONJ
 7	political	ADJ
-8	rhetoric	NOUN
+8	rhetoric	NOUNand
 9	is	AUX
 10	familiar	ADJ
 11	,	PUNCT
@@ -142,6 +152,7 @@ position	word	postag  head	label
 14	be	AUX
 15	.	PUNCT
 
+# text = The feasibility study estimates that it would take passengers about four minutes to cross the Potomac River on the gondola.
 1	The	DET
 2	feasibility	NOUN
 3	study	NOUN

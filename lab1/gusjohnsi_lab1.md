@@ -69,5 +69,13 @@ What can you say about the syntactic differences between the languages?
 ## Chapter 2, design morphological types
 
 1. It is enough to cover NOUN, ADJ, and VERB.
+
+
+
+
 2. Use a traditional grammar book or a Wikipedia article to identify the inflectional and inherent features.
+
+inflection = böjningsformer
+
+
 3. Then use data from PUD to check which morphological features actually occur in the treebank for that language.
