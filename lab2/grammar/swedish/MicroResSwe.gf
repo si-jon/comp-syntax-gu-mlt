@@ -4,11 +4,12 @@ param
   Number = Sg | Pl ;
   Species = Indef | Def ;
   Gender = Utr | Neutr ;
+  Case = Nom | Acc;
+  Degree = Positive | Comparative | Superlative ;
+  Agreement = Agr Number ;
 
---  Agreement = Agr Number ; ---s Person to be added
-
-  -- all forms of normal Swe verbs, although not yet used in MiniGrammar
---  VForm = Inf | PresSg3 | Past | PastPart | PresPart ; 
+  VForm = Inf | Pres | Pret | Perf ; 
+  AForm = sgIndef | sgDef | plIndef | plDef ;
 
 oper
   Noun = { s :Number => Species => Str ; g : Gender} ;
@@ -38,45 +39,70 @@ oper
           }
       } ;
 
+  Adjective : Type = {
+      pIndefSg : Gender => Str ;
+      pDefSg : Str ;
+      pPl : Str ;
+      c : Str ;
+      s : Species => Str
+    } ;
 
-  Adjective : Type = {s : Str} ;
+  mkAdjective : Str -> Str -> Str -> Str -> Str -> Str -> Adjective
+    = \posUtr,posNeutr,posDefSg,posPl,cmp,super -> {
+      pIndefSg = table { Utr => posUtr ; Neutr => posNeutr } ;
+      pDefSg = posDefSg ;
+      pPl = posPl ;
+      c = cmp ;
+      s = table { Indef => super ; Def => super + "e" }
+    } ;
 
---  Verb : Type = {s : VForm => Str} ;
+  smartAdjective : Str -> Adjective = \pos -> case pos of {
+    smar + "t" => smartAdjective2 pos pos ;
+    _ => smartAdjective2 pos (pos + "t")
+  } ;
 
---  mkVerb : (inf,pres,past,pastpart,prespart : Str) -> Verb
---    = \inf,pres,past,pastpart,prespart -> {
---    s = table {
---      Inf => inf ;
---      PresSg3 => pres ;
---      Past => past ;
---      PastPart => pastpart ;
---      PresPart => prespart
---      }
---    } ;
+  smartAdjective2 : Str -> Str -> Adjective = \posUtr,posNeutr ->
+    smartAdjective4 posUtr  posNeutr (posUtr + "are") (posUtr + "ast") ;
 
---  regVerb : (inf : Str) -> Verb = \inf ->
---    mkVerb inf (inf + "s") (inf + "ed") (inf + "ed") (inf + "ing") ;
+  smartAdjective3 : Str -> Str -> Str -> Adjective = \pos,cmp,super ->
+    smartAdjective4 pos (pos + "t") cmp super ;
+  
+  smartAdjective4 : Str -> Str -> Str -> Str -> Adjective = \posUtr,posNeutr,cmp,super ->
+    mkAdjective posUtr posNeutr (posUtr + "a") (posUtr + "a") cmp super ;
+  
+  mkAdjective2 : Str -> Adjective
+    = \adj -> {
+      pIndefSg = table { Utr => adj ; Neutr => adj } ;
+      pDefSg = adj ;
+      pPl = adj ;
+      c = "mer" ++ adj ;
+      s = table { Indef => "mest" ++ adj ; Deg => "mest" ++ adj }
+    } ;
 
-  -- regular verbs with predictable variations
---  smartVerb : Str -> Verb = \inf -> case inf of {
---     pl  +  ("a"|"e"|"i"|"o"|"u") + "y" => regVerb inf ;
---     cr  +  "y" =>  mkVerb inf (cr + "ies") (cr + "ied") (cr + "ied") (inf + "ing") ;
---     lov + "e"  => mkVerb inf (inf + "s") (lov + "ed") (lov + "ed") (lov + "ing") ;
---     kis + ("s"|"sh"|"x"|"o") => mkVerb inf (inf + "es") (inf + "ed") (inf + "ed") (inf + "ing") ;
---     _ => regVerb inf
---     } ;
+  Verb : Type = {s : VForm => Str} ;
 
-  -- normal irregular verbs e.g. drink,drank,drunk
---  irregVerb : (inf,past,pastpart : Str) -> Verb =
---    \inf,past,pastpart ->
---      let verb = smartVerb inf
---      in mkVerb inf (verb.s ! PresSg3) past pastpart (verb.s ! PresPart) ;   
+  mkVerb : (inf,pres,pret,perf : Str) -> Verb
+    = \inf,pres,pret,perf -> {
+    s = table {
+      Inf => inf ;
+      Pres => pres ;
+      Pret => pret ;
+      Perf => perf
+      }
+    } ;
 
-  -- two-place verb with "case" as preposition; for transitive verbs, c=[]
---  Verb2 : Type = Verb ** {c : Str} ;
+  regVerb : (inf : Str) -> Verb = \inf ->
+    mkVerb inf (inf + "r") (inf + "de") (inf + "t") ;
 
---  be_Verb : Verb = mkVerb "are" "is" "was" "been" "being" ; ---s to be generalized
+  irregVerb : (inf,pres,pret,perf : Str) -> Verb = 
+    \inf,pres,pret,perf ->
+      mkVerb inf pres pret perf ;
 
+  Verb2 : Type = Verb ** {c : Str} ;
+
+--  agr2aform : Agreement -> AForm = \a case a of {
+--    Agr Sg => case 
+--  }
 
 ---s a very simplified verb agreement function for Micro
 --  agr2vform : Agreement -> VForm = \a -> case a of {

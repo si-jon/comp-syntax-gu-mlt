@@ -9,32 +9,36 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
     Utt = {s : Str} ;
     
     S  = {s : Str} ;
---    VP = {verb : Verb ; compl : Str} ; ---s special case of Mini
---    Comp = {s : Str} ;
---    AP = Adjective ;
---    CN = Noun ;
---    NP = {s : Case => Str ; a : Agreement} ;
---    Pron = {s : Case => Str ; a : Agreement} ;
---    Det = {s : Str ; n : Number} ;
---    Prep = {s : Str} ;
---    V = Verb ;
---    V2 = Verb2 ;
+    VP = {verb : Verb ; compl : Str} ; ---s special case of Mini
+    Comp = {s : Str} ;
+    AP = Adjective ;
+    CN = Noun ;
+    NP = {s : Number => Species => Str ; a : Agreement} ;
+    Pron = {s : Case => Str ; a : Agreement} ;
+    Det = {s : Str ; n : Number} ;
+    Prep = {s : Str} ;
+    V = Verb ;
+    V2 = Verb2 ;
     A = Adjective ;
     N = Noun ;
---    Adv = {s : Str} ;
+    Adv = {s : Str} ;
 
---  lin
---    UttS s = s ;
+  lin
+    UttS s = s ;
 --    UttNP np = {s = np.s ! Acc} ;
 
 --    PredVPS np vp = {
 --      s = np.s ! Nom ++ vp.verb.s ! agr2vform np.a ++ vp.compl
 --      } ;
+--    PredAPS ap np = {
+--      s = np.s ! 
+--
+--    }
       
---    UseV v = {
---      verb = v ;
---      compl = [] ;
---      } ;
+    UseV v = {
+      verb = v ;
+      compl = [] ;
+      } ;
       
 --    ComplV2 v2 np = {
 --      verb = v2 ;
@@ -63,7 +67,7 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
 --    the_Det = {s = "the" ; n = Sg} ;
 --    thePl_Det = {s = "the" ; n = Pl} ;
     
---    UseN n = n ;
+    UseN n = n ;
     
 --    AdjCN ap cn = {
 --      s = table {n => ap.s ++ cn.s ! n}
@@ -77,18 +81,22 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
 --    on_Prep = {s = "on"} ;
 --    with_Prep = {s = "with"} ;
 
---    he_Pron = {
---      s = table {Nom => "he" ; Acc => "him"} ;
---      a = Agr Sg ;
---      } ;
---    she_Pron = {
---      s = table {Nom => "she" ; Acc => "her"} ;
---      a = Agr Sg ;
---      } ;
---    they_Pron = {
---      s = table {Nom => "they" ; Acc => "them"} ;
---      a = Agr Pl ;
---      } ;
+    han_Pron = {
+      s = table {Nom => "han" ; Acc => "honom"} ;
+      a = Agr Sg ;
+      } ;
+    hon_Pron = {
+      s = table {Nom => "hon" ; Acc => "henne"} ;
+      a = Agr Sg ;
+      } ;
+    hen_Pron = {
+      s = table {Nom => "hen" ; Acc => "hen"} ;
+      a = Agr Sg ;
+      } ;
+    de_Pron = {
+      s = table {Nom => "de" ; Acc => "dem"} ;
+      a = Agr Pl ;
+      } ;
 
 -----------------------------------------------------
 ---------------- Lexicon part -----------------------
@@ -98,90 +106,90 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
  lin animal_N = mkN "djur" Neutr ;
  lin apple_N = mkN "äpple" Neutr ;
  lin baby_N = mkN "bebis" Utr ;
- lin bad_A = mkA "dålig" ;
+ lin bad_A = mkA "dålig" "sämre" "sämst" ;
  lin beer_N = mkN "öl" Neutr ;
- lin big_A = mkA "stor" ;
+ lin big_A = mkA "stor" "större" "störst" ;
  lin bike_N = mkN "cykel" Utr ;
  lin bird_N = mkN "fågel" Utr ;
  lin black_A = mkA "svart" ;
  lin blood_N = mkN "blod" Neutr;
- lin blue_A = mkA "blå" ;
+ lin blue_A = mkA "blå" "blått" ;
  lin boat_N = mkN "båt" Utr;
  lin book_N = mkN "bok" "boken" "böcker" "böckerna" Utr ;
  lin boy_N = mkN "pojke" Utr ;
  lin bread_N = mkN "bröd" Neutr ;
--- lin break_V2 = mkV2 (mkV "break" "broke" "broken") ;
--- lin buy_V2 = mkV2 (mkV "buy" "bought" "bought") ;
+ lin break_V2 = mkV2 (mkV "bryta" "bryter" "bröt" "brutit") ;
+ lin buy_V2 = mkV2 (mkV "köpa" "köper" "köpte" "köpt") ;
  lin car_N = mkN "bil" Utr ;
  lin cat_N = mkN "katt" "katten" "katter" "katterna" Utr ;
  lin child_N = mkN "barn" Neutr ;
  lin city_N = mkN "stad" "staden" "städer" "städerna" Utr ;
--- lin clean_A = mkA "clean" ;
--- lin clever_A = mkA "clever" ;
+ lin clean_A = mkA "ren" ;
+ lin clever_A = mkA "smart" ;
  lin cloud_N = mkN "moln" Neutr ;
--- lin cold_A = mkA "cold" ;
--- lin come_V = mkV "come" "came" "come" ;
+ lin cold_A = mkA "kall" ;
+ lin come_V = mkV "komma" "kommer" "kom" "kommit";
  lin computer_N = mkN "dator" Utr ;
  lin cow_N = mkN "ko" "kon" "kor" "korna" Utr ;
--- lin dirty_A = mkA "dirty" ;
+ lin dirty_A = mkA "smutsig" ;
  lin dog_N = mkN "hund" Utr;
--- lin drink_V2 = mkV2 (mkV "drink" "drank" "drunk") ;
--- lin eat_V2 = mkV2 (mkV "eat" "ate" "eaten") ;
--- lin find_V2 = mkV2 (mkV "find" "found" "found") ;
+ lin drink_V2 = mkV2 (mkV "dricka" "dricker" "drack" "druckit") ;
+ lin eat_V2 = mkV2 (mkV "äta" "äter" "åt" "ätit") ;
+ lin find_V2 = mkV2 "hitta" ;
  lin fire_N = mkN "eld" Utr ;
  lin fish_N = mkN "fisk" Utr ;
  lin flower_N = mkN "blomma" Utr ;
  lin friend_N = mkN "vän" Utr ;
  lin girl_N = mkN "flicka" Utr ;
--- lin good_A = mkA "good" ;
--- lin go_V = mkV "go" "went" "gone" ;
+ lin good_A = mkA "god" "gott" ;
+ lin go_V = mkV "åka" "åker" "åkte" "åkt" ;
  lin grammar_N = mkN "grammatik" "grammatiken" "grammatiker" "grammatikerna" Utr ;
--- lin green_A = mkA "green" ;
--- lin heavy_A = mkA "heavy" ;
+ lin green_A = mkA "grön" ;
+ lin heavy_A = mkA "tung" "tyngre" "tyngst" ;
  lin horse_N = mkN "häst" Utr ;
--- lin hot_A = mkA "hot" ;
+ lin hot_A = mkA "het" "hett" ;
  lin house_N = mkN "hus" Neutr ;
 -- lin john_PN = mkPN "John" ;
--- lin jump_V = mkV "jump" ;
--- lin kill_V2 = mkV2 "kill" ;
+ lin jump_V = mkV "hoppa" ;
+ lin kill_V2 = mkV2 "döda" ;
 -- lin know_VS = mkVS (mkV "know" "knew" "known") ;
  lin language_N = mkN "språk" Neutr ;
--- lin live_V = mkV "live" ;
--- lin love_V2 = mkV2 (mkV "love") ;
+ lin live_V = mkV "leva" "lever" "levde" "levt" ;
+ lin love_V2 = mkV2 "älska" ;
  lin man_N = mkN "man" "mannen" "män" "männen" Utr ;
  lin milk_N = mkN "mjölk" "mjölken" "mjölk" "mjölken" Utr;
  lin music_N = mkN "musik" "musiken" "musik" "musiken" Utr ;
--- lin new_A = mkA "new" ;
+ lin new_A = mkA "ny" "nytt" ;
 -- lin now_Adv = mkAdv "now" ;
--- lin old_A = mkA "old" ;
+ lin old_A = mkA "gammal" "äldre" "äldst" ;
 -- lin paris_PN = mkPN "Paris" ;
--- lin play_V = mkV "play" ;
--- lin read_V2 = mkV2 (mkV "read" "read" "read") ;
--- lin ready_A = mkA "ready" ;
--- lin red_A = mkA "red" ;
+ lin play_V = mkV "spela" ;
+ lin read_V2 = mkV2 (mkV "läsa" "läser" "läste" "läst") ;
+ lin ready_A = mkA2 "redo" ;
+ lin red_A = mkA "röd" "rött" ;
  lin river_N = mkN "flod" Utr ;
--- lin run_V = mkV "run" "ran" "run" ;
+ lin run_V = mkV "springa" "springer" "springde" "sprungit" ;
  lin sea_N = mkN "hav" Neutr ;
--- lin see_V2 = mkV2 (mkV "see" "saw" "seen") ;
+ lin see_V2 = mkV2 (mkV "se" "ser" "såg" "sett") ;
  lin ship_N = mkN "skepp" Neutr ;
--- lin sleep_V = mkV "sleep" "slept" "slept" ;
--- lin small_A = mkA "small" ;
+ lin sleep_V = mkV "sova" "sover" "sov" "sovit" ;
+ lin small_A = mkA "liten" "litet" "lilla" "små" "mindre" "minst" ;
  lin star_N = mkN "stjärna" Utr ;
--- lin swim_V = mkV "swim" "swam" "swum" ;
--- lin teach_V2 = mkV2 (mkV "teach" "taught" "taught") ;
+ lin swim_V = mkV "simma" ;
+ lin teach_V2 = mkV2 (mkV "lära" "lär" "lärde" "lärt") ;
  lin train_N = mkN "tåg" Neutr ;
--- lin travel_V = mkV "travel" ;
+ lin travel_V = mkV "resa" "reser" "resde" "rest" ;
  lin tree_N = mkN "träd" Neutr ;
--- lin understand_V2 = mkV2 (mkV "understand" "understood" "understood") ;
--- lin wait_V2 = mkV2 "wait" "for" ;
--- lin walk_V = mkV "walk" ;
--- lin warm_A = mkA "warm" ;
+ lin understand_V2 = mkV2 (mkV "förstå" "förstår" "förstod" "förstått") ;
+ lin wait_V2 = mkV2 "vänta" "på" ;
+ lin walk_V = mkV "gå" "går" "gick" "gått" ;
+ lin warm_A = mkA "varm" ;
  lin water_N = mkN "vatten" Neutr ;
--- lin white_A = mkA "white" ;
+ lin white_A = mkA "vit" "vitt" ;
  lin wine_N = mkN "vin" "vinet" "viner" "vinerna" Neutr ;
  lin woman_N = mkN "kvinna" Utr ;
--- lin yellow_A = mkA "yellow" ;
--- lin young_A = mkA "young" ;
+ lin yellow_A = mkA "gul" ;
+ lin young_A = mkA "ung" "yngre" "yngst" ;
 
 ---------------------------
 -- Paradigms part ---------
@@ -195,26 +203,39 @@ oper
       = \sgIndef,sgDef,plIndef,plDef,gen -> lin N (mkNoun sgIndef sgDef plIndef plDef gen) ;
     } ;
 
-  mkA : Str -> A
-    = \s -> lin A {s = s} ;
---
---  mkV = overload {
---    mkV : (inf : Str) -> V  -- predictable verb, e.g. play-plays, cry-cries, wash-washes
---      = \s -> lin V (smartVerb s) ;
---    mkV : (inf,pres,part : Str) -> V  -- irregular verb, e.g. drink-drank-drunk
---      = \inf,pres,part -> lin V (irregVerb inf pres part) ;
---    } ;
---
---  mkV2 = overload {
---    mkV2 : Str -> V2          -- predictable verb with direct object, e.g. "wash"
---      = \s   -> lin V2 (smartVerb s ** {c = []}) ;
---    mkV2 : Str  -> Str -> V2  -- predictable verb with preposition, e.g. "wait - for"
---      = \s,p -> lin V2 (smartVerb s ** {c = p}) ;
---    mkV2 : V -> V2            -- any verb with direct object, e.g. "drink"
---      = \v   -> lin V2 (v ** {c = []}) ;
---    mkV2 : V -> Str -> V2     -- any verb with preposition
---      = \v,p -> lin V2 (v ** {c = p}) ;
---    } ;
+  mkA = overload {
+    mkA :  Str -> A -- predictable adjective
+      = \a -> lin A (smartAdjective a) ;
+    mkA : Str -> Str -> A -- a bit irregular adjective
+      = \posUtr,posNeutr -> lin A (smartAdjective2 posUtr posNeutr) ;
+    mkA : Str -> Str -> Str -> A -- quite irregular adjective
+      = \pos,cmp,super -> lin A (smartAdjective3 pos cmp super) ;
+    mkA : Str -> Str -> Str -> Str -> A -- very irregular adjective
+      = \posUtr,posNeutr,cmp,super -> lin A (smartAdjective4 posUtr posNeutr cmp super) ;
+    mkA : Str -> Str -> Str -> Str -> Str -> Str -> A -- worst irregular adjective
+      = \posUtr,posNeutr,posDefSg,posPl,cmp,super -> lin A (mkAdjective posUtr posNeutr posDefSg posPl cmp super) ;
+  } ;
+
+  mkA2 : Str -> A 
+    = \s -> lin A (mkAdjective2 s) ;
+
+  mkV = overload {
+    mkV : (inf : Str) -> V  -- predictable verb, e.g. baka-bakar-bakade-bakat, titta-tittar-tittade-tittat
+      = \s -> lin V (regVerb s) ;
+    mkV : (inf,pres,pret,perf : Str) -> V  -- irregular verb, e.g. sjunga-sjunger-sjöng-sjungit
+      = \inf,pres,pret,perf -> lin V (irregVerb inf pres pret perf) ;
+    } ;
+  
+  mkV2 = overload {
+    mkV2 : Str -> V2          -- predictable verb with direct object, e.g. "hitta"
+      = \s   -> lin V2 (regVerb s ** {c = []}) ;
+    mkV2 : Str  -> Str -> V2  -- predictable verb with preposition, e.g. "vänta - på"
+      = \s,p -> lin V2 (regVerb s ** {c = p}) ;
+    mkV2 : V -> V2            -- any verb with direct object, e.g. "drink"
+      = \v   -> lin V2 (v ** {c = []}) ;
+    mkV2 : V -> Str -> V2     -- any verb with preposition
+      = \v,p -> lin V2 (v ** {c = p}) ;
+    } ;
 --
 --  mkAdv : Str -> Adv
 --    = \s -> lin Adv {s = s} ;
