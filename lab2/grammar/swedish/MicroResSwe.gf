@@ -6,10 +6,10 @@ param
   Gender = Utr | Neutr ;
   Case = Nom | Acc;
   Degree = Positive | Comparative | Superlative ;
-  Agreement = Agr Number ;
+  Agreement = Agr Number Species Gender ;
 
   VForm = Inf | Pres | Pret | Perf ; 
-  AForm = sgIndef | sgDef | plIndef | plDef ;
+  AForm = PosIndefSgUtr | PosIndefSgNeutr | PosDefSg | PosPl | Cmp | IndefSuper | DefSuper ;
 
 oper
   Noun = { s :Number => Species => Str ; g : Gender} ;
@@ -39,21 +39,20 @@ oper
           }
       } ;
 
-  Adjective : Type = {
-      pIndefSg : Gender => Str ;
-      pDefSg : Str ;
-      pPl : Str ;
-      c : Str ;
-      s : Species => Str
-    } ;
+
+  Adjective : Type = {s : AForm => Str} ;
 
   mkAdjective : Str -> Str -> Str -> Str -> Str -> Str -> Adjective
     = \posUtr,posNeutr,posDefSg,posPl,cmp,super -> {
-      pIndefSg = table { Utr => posUtr ; Neutr => posNeutr } ;
-      pDefSg = posDefSg ;
-      pPl = posPl ;
-      c = cmp ;
-      s = table { Indef => super ; Def => super + "e" }
+      s = table {
+        PosIndefSgUtr => posUtr ;
+        PosIndefSgNeutr => posNeutr ;
+        PosDefSg => posDefSg ;
+        PosPl => posPl ;
+        Cmp => cmp ;
+        IndefSuper => super ;
+        DefSuper => super + "e"
+      }
     } ;
 
   smartAdjective : Str -> Adjective = \pos -> case pos of {
@@ -72,11 +71,15 @@ oper
   
   mkAdjective2 : Str -> Adjective
     = \adj -> {
-      pIndefSg = table { Utr => adj ; Neutr => adj } ;
-      pDefSg = adj ;
-      pPl = adj ;
-      c = "mer" ++ adj ;
-      s = table { Indef => "mest" ++ adj ; Deg => "mest" ++ adj }
+      s = table {
+        PosIndefSgUtr => adj ;
+        PosIndefSgNeutr => adj ;
+        PosDefSg => adj ;
+        PosPl => adj ;
+        Cmp => "mer" ++ adj ;
+        IndefSuper => "mest" ++ adj ;
+        DefSuper => "mest" ++ adj
+      }
     } ;
 
   Verb : Type = {s : VForm => Str} ;
@@ -100,14 +103,15 @@ oper
 
   Verb2 : Type = Verb ** {c : Str} ;
 
---  agr2aform : Agreement -> AForm = \a case a of {
---    Agr Sg => case 
---  }
+  be_Verb : Verb = mkVerb "vara" "är" "var" "varit" ;
 
----s a very simplified verb agreement function for Micro
---  agr2vform : Agreement -> VForm = \a -> case a of {
---    Agr Sg => PresSg3 ;
---    Agr Pl => Inf
---    } ;
+  agr2aform : Agreement -> AForm = \a -> case a of {
+    Agr Sg Indef Utr    => PosIndefSgUtr ;
+    Agr Sg Indef Neutr  => PosIndefSgNeutr ;
+    Agr Sg Def _        => PosDefSg ;
+    Agr Pl _ _          => PosPl
+    } ;
+  
+  
 
 }

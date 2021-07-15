@@ -15,7 +15,7 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
     CN = Noun ;
     NP = {s : Number => Species => Str ; a : Agreement} ;
     Pron = {s : Case => Str ; a : Agreement} ;
-    Det = {s : Str ; n : Number} ;
+    Det = {s : Str ; n : Number ; sp : Species ; g : Gender} ;
     Prep = {s : Str} ;
     V = Verb ;
     V2 = Verb2 ;
@@ -24,78 +24,99 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
     Adv = {s : Str} ;
 
   lin
+-- Phrase
     UttS s = s ;
---    UttNP np = {s = np.s ! Acc} ;
+    UttNP np = {s = np.s ! Sg ! Indef} ;
 
---    PredVPS np vp = {
---      s = np.s ! Nom ++ vp.verb.s ! agr2vform np.a ++ vp.compl
---      } ;
---    PredAPS ap np = {
---      s = np.s ! 
---
---    }
-      
+-- Sentence
+    PredVPS np vp = {
+        s = np.s ! Sg ! Indef ++ vp.verb.s ! Pres ++ vp.compl
+      } ;
+
+-- Verb      
     UseV v = {
       verb = v ;
       compl = [] ;
       } ;
       
---    ComplV2 v2 np = {
---      verb = v2 ;
---      compl = v2.c ++ np.s ! Acc  -- NP object in the accusative, preposition first
---      } ;
+    ComplV2 v2 np = {
+      verb = v2 ;
+      compl = v2.c ++ np.s ! Sg ! Indef
+      } ;
       
---    UseComp comp = {
---      verb = be_Verb ;     -- the verb is the copula "be"
---      compl = comp.s
---      } ;
+    UseComp comp = {
+      verb = be_Verb ;     -- the verb is the copula "vara"
+      compl = comp.s
+      } ;
       
---    CompAP ap = ap ;
+--   CompAP ap = {
+--     
+--   };
       
 --    AdvVP vp adv =
 --      vp ** {compl = vp.compl ++ adv.s} ;
       
---    DetCN det cn = {
---      s = \\c => det.s ++ cn.s ! det.n ;
---      a = Agr det.n ;
---      } ;
+-- Noun
+    DetCN det cn = {
+      s = \\c => det.s ++ cn.s ! det.n ! det.sp ;
+      a = Agr det.n det.sp det.g ;
+      } ;
       
 --    UsePron p = p ;
             
---    a_Det = {s = pre {"a"|"e"|"i"|"o" => "an" ; _ => "a"} ; n = Sg} ; --- a/an can get wrong
---    aPl_Det = {s = "" ; n = Pl} ;
---    the_Det = {s = "the" ; n = Sg} ;
---    thePl_Det = {s = "the" ; n = Pl} ;
+    -- a_Det = {
+    --   s = table {
+    --     Utr => "en" ;
+    --     Neutr => "ett"
+    --   } ; 
+    --   n = Sg
+    -- } ;
+    a_Det = { s = "en" ; n = Sg ; sp = Indef ; g = Utr} ;
+    aPl_Det = { s = "flera" ; n = Pl ; sp = Indef ; g = Utr} ;
+
+--    the_Det = {
+--      s = pre {
+--        Utr => "den" ;
+--        Neutr => "det"
+--        } ;
+--      n = Sg
+--      } ;
+    the_Det = {s = "den" ; n = Sg ; sp = Indef ; g = Utr} ;
+    thePl_Det = {s = "de" ; n = Pl ; sp = Indef ; g = Utr} ;
     
     UseN n = n ;
     
---    AdjCN ap cn = {
---      s = table {n => ap.s ++ cn.s ! n}
---      } ;
+    AdjCN ap cn = {
+      s = table {
+        n => cn.s ! n
+        } ;
+      g = cn.g
+      } ;
 
---    PositA a = a ;
+-- Adjective
+    PositA a = a ;
 
---    PrepNP prep np = {s = prep.s ++ np.s ! Acc} ;
+-- Adverb
+    PrepNP prep np = {
+      s = prep.s ++ np.s ! Sg ! Indef
+      } ;
 
---    in_Prep = {s = "in"} ;
---    on_Prep = {s = "on"} ;
---    with_Prep = {s = "with"} ;
+-- Structural
+    in_Prep = {s = "i"} ;
+    on_Prep = {s = "på"} ;
+    with_Prep = {s = "med"} ;
 
-    han_Pron = {
+    he_Pron = {
       s = table {Nom => "han" ; Acc => "honom"} ;
-      a = Agr Sg ;
+      a = Agr Sg Def Utr;
       } ;
-    hon_Pron = {
+    she_Pron = {
       s = table {Nom => "hon" ; Acc => "henne"} ;
-      a = Agr Sg ;
+      a = Agr Sg Def Utr;
       } ;
-    hen_Pron = {
-      s = table {Nom => "hen" ; Acc => "hen"} ;
-      a = Agr Sg ;
-      } ;
-    de_Pron = {
+    they_Pron = {
       s = table {Nom => "de" ; Acc => "dem"} ;
-      a = Agr Pl ;
+      a = Agr Pl Def Utr;
       } ;
 
 -----------------------------------------------------

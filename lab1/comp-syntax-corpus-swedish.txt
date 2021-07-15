@@ -1,0 +1,201 @@
+position	word	postag  head	label
+# position    word   _    postag   _   _   head   label   _   _
+# 7       world   _       NOUN    _       _       4       nmod    _       _
+
+# text = Vilka är de?
+# text_en = Who are they?
+1	Vilka PRON	_	_	0:root
+2	är AUX	_	_	1:cop
+3	de	PRON	_	_	1:nsubj
+4	?	PUNCT	_	_	1:punct
+
+# text = Jag var bara en pojke med leriga skor.
+# text_en = I was just a boy with muddy shoes.
+1	Jag	PRON	_	_	5:nsubj
+2	var	AUX	_	_	5:cop
+3	bara	ADV	_	_	5:advmod
+4	en	DET	_	_	5:det
+5	pojke	NOUN	_	_	0:root
+6	med	ADP	_	_	8:case
+7	smutsiga	ADJ	_	_	8:amod
+8	skor	NOUN	_	_	5:nmod
+9	.	PUNCT	_	_	5:punct
+
+# text = Shenzhens trafikpolis har valt okonventionella straff förut.
+# text_en = Shenzhen's traffic police have opted for unconventional penalties before.
+1	Shenzhens	PROPN	_	_	2:nmod:poss
+2	traffikpolis	NOUN	_	_	4:nsubj
+3	har	AUX	_	_	4:aux
+4	valt	VERB	_	_	0:root
+5	okonvetionella	ADJ	_	_	6:amod
+6	straff	NOUN	_	_	4:obj
+7	förut	ADV	_	_	6:advmod
+8	.	PUNCT	_	_	4:punct
+
+# text = Studiet av vulkaner kallas vulkanologi, ibland stavat vulkanologi.
+# text_en = The study of volcanoes is called volcanology, sometimes spelled vulcanology.
+1   Studiet NOUN	_	_	4:nsubj:pass
+2   av  ADP	_	_	3:case
+3   vulkaner    NOUN	_	_	1:nmod
+4   kallas  VERB	_	_	0:root
+5   vulkanologi NOUN	_	_	4:xcomp
+6   ,   PUNCT	_	_	4:punct
+7   ibland  ADV	_	_	8:advmod
+8   stavat  VERB	_	_	4:parataxis
+9   vulkanologi NOUN	_	_	8:obl
+10  .   PUNCT	_	_	4:punct
+
+# text = Det genomfördes strax utanför den mexicanska kusten mellan april och juni.
+# text_en = It was conducted just off the Mexican coast from April to June.
+1	Det	PRON	_	_	2:nsubj:pass
+2	genomfördes	VERB	_	_	0:root
+3	strax	ADV	_	_	7:advmod
+4	utanför	ADP	_	_	7:case
+5	den	DET	_	_	7:det
+6	mexicanska	ADJ	_	_	7:amod
+7	kusten	NOUN	_	_	2:obl
+8	mellan	ADP	_	_	9:case
+9	april	PROPN	_	_	7:obl
+10	och	CCONJ	_	_	11:cc
+11	juni	PROPN	_	_	9:conj
+12	.	PUNCT	_	_	2:punct
+
+# text = Hennes röst gick bokstavligt talat runt jorden, sa Leive.
+# text_en = "Her voice literally went around the world," Leive said.
+1   Hennes  PRON	_	_	2:nmod:poss
+2   röst    NOUN	_	_	3:nsubj
+3   gick    VERB	_	_	0:root
+4   bokstavligt ADV	_	_	5:advmod
+5   talat   VERB	_	_	3:advcl
+6   runt    ADP	_	_	7:case
+7   jorden  NOUN	_	_	3:obl
+8   ,   PUNCT	_	_	3:punct
+9   sa  VERB	_	_	3:parataxis
+10  Leive   PROPN	_	_	9:nsubj
+11  .   PUNCT	_	_	3:punct
+
+# text = Ett vittne berättade för polisen att offret hade attackerat den misstänkte i april.
+# text_en = A witness told police that the victim had attacked the suspect in April.
+1   Ett DET	_	_	2:det
+2   vittne  NOUN	_	_	3:nsubj
+3   berättade   VERB	_	_	0:root
+4   för ADP	_	_	5:case
+5   polisen NOUN	_	_	3:obl
+6   att SCONJ	_	_	9:mark
+7   offret  NOUN	_	_	9:nsubj
+8   hade    AUX	_	_	9:aux
+9   attackerat  VERB	_	_	3:ccomp
+10  den DET	_	_	11:det
+11  misstänkte  NOUN	_	_	9:obj
+12  i   ADP	_	_	13:case
+13  april   NOUN	_	_	9:obl
+14  .   PUNCT	_	_	3:punct
+
+# text_en = Det är som allra tydligast när en kändis namn från början är ganska ovanligt.
+# text = It's most obvious when a celebrity's name is initially quite rare.
+1   Det	PRON _	_	5:nsubj
+2   är	AUX    _	_	5:cop
+3   som SCONJ	_	_	5:mark
+4   allra   ADV	_	_	5:advmod
+5   tydligast   ADJ	_	_	0:root
+6   när SCONJ	_	_	14:mark
+7   en  DET	_	_	8:det
+8   kändis  NOUN	_	_	9:nmod:poss
+9   namn    NOUN	_	_	14:nsubj
+10  från    ADP	_	_	11:mark
+11  början  NOUN	_	_	14:obl
+12  är  AUX	_	_	14:cop
+13  ganska  ADV	_	_	14:advmod
+14  ovanligt    ADJ	_	_	5:advcl
+15  .	_	_	5:punct
+
+# text = Detta har inte hindrat investerare från att flockas för att sätta in sina pengar i fonderna.
+# text_en = This has not stopped investors flocking to put their money in the funds.
+1   Detta	_	_	0:root
+2   har	_	_	0:root
+3   inte	_	_	0:root
+4   hindrat	_	_	0:root
+5   investerare	_	_	0:root
+6   från	_	_	0:root
+7   att	_	_	0:root
+8   flockas	_	_	0:root
+9   för	_	_	0:root
+10  att	_	_	0:root
+11  sätta	_	_	0:root
+12  in	_	_	0:root
+13  sina	_	_	0:root
+14  pengar	_	_	0:root
+15  i	_	_	0:root
+16  fonderna	_	_	0:root
+17  .	_	_	0:root
+
+# text = Denna dissonans mellan ekonomiska data och politisk retorik är bekant, eller borde vara det.
+# text_en = This discordance between economic data and political rhetoric is familiar, or should be.
+1   Denna
+2   dissonans
+3   mellan
+4   ekonomiska
+5   data
+6   och
+7   politisk
+8   retorik
+9   är
+10  bekant
+11  ,
+12  eller
+13  borde
+14  vara
+15  det
+16  .
+
+
+# text = Rimlighetsstudien uppskattar att det skulle ta passagerare ungefär fyra minuter att korsa Potomacfloden med gondolen.
+# text_en = The feasibility study estimates that it would take passengers about four minutes to cross the Potomac River on the gondola.
+1   Rimlighetsstudien
+2   uppskattar
+3   att
+4   det
+5   skulle
+6   ta
+7   passagerare
+8   ungefär
+9   fyra
+10  minuter
+11  att
+12  korsa
+13  Potomacfloden
+14  med
+15  gondolen
+16  .
+
+# text = han samlade på kort och bytte dem med de andra pojkarna
+# text_en = he collected cards and traded them with the other boys
+
+# text = det här brottet har ett straffvärde på fem år i fängelse
+# text_en = this crime carries a penalty of five years in prison
+
+# text = nyheterna färdades till varje by i provinsen
+# text_en = the news was carried to every village in the province
+
+# text = jag bär med mig de här tankarna i bakhuvudet
+# text_en = I carry these thoughts in the back of my head
+
+# text = Adam skulle ha först över till det eviga livet
+# text_en = Adam would have been carried over into the life eternal
+
+# text = skalen hade ruttnat bort och behövde bytas
+# text_en = the casings had rotted away and had to be replaced
+
+# text = hon var förgrymmad över att denna flicksnärta hade mage att göra henne till åtlöje inför hela klassen
+# text_en = she was incensed that this chit of a girl should dare to make a fool of her in front of the class
+
+# text = 
+# text_en = the landslide he had in the electoral college obscured the narrowness of a victory based on just 43% of the popular vote
+
+# text_en = United States troops now carry atropine and autoinjectors in their first-aid kits to use in case of organophosphate nerve agent poisoning
+
+# text_en = he may accomplish by craft in the long run what he cannot do by force and violence in the short one
+
+# text_en = it has been said that only a hierarchical society with a leisure class at the top can produce works of art
+
+# text_en = his ingenuous explanation that he would not have burned the church if he had not thought the bishop was in it

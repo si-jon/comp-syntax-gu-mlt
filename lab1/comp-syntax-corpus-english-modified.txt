@@ -19,7 +19,7 @@ position	word	postag  head	label
 8	by	ADV	_	_	7:advmod
 9	.	PUNCT	_	_	7:punct
 
-# text = I was just a boy with muddy shoes
+# text = I was just a boy with muddy shoes.
 1	I	PRON	_	_	5:nsubj
 2	was	AUX	_	_	5:cop
 3	just	ADV	_	_	5:advmod
