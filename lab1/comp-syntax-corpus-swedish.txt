@@ -1,201 +1,374 @@
-position	word	postag  head	label
+#position	word	postag  head	label
 # position    word   _    postag   _   _   head   label   _   _
 # 7       world   _       NOUN    _       _       4       nmod    _       _
 
 # text = Vilka är de?
 # text_en = Who are they?
-1	Vilka PRON	_	_	0:root
-2	är AUX	_	_	1:cop
-3	de	PRON	_	_	1:nsubj
-4	?	PUNCT	_	_	1:punct
+1	Vilka PRON	_	_	0	root	_	_
+2	är AUX	_	_	1	cop	_	_
+3	de	PRON	_	_	1	nsubj	_	_
+4	?	PUNCT	_	_	1	punct	_	_
 
 # text = Jag var bara en pojke med leriga skor.
 # text_en = I was just a boy with muddy shoes.
-1	Jag	PRON	_	_	5:nsubj
-2	var	AUX	_	_	5:cop
-3	bara	ADV	_	_	5:advmod
-4	en	DET	_	_	5:det
-5	pojke	NOUN	_	_	0:root
-6	med	ADP	_	_	8:case
-7	smutsiga	ADJ	_	_	8:amod
-8	skor	NOUN	_	_	5:nmod
-9	.	PUNCT	_	_	5:punct
+1	Jag	PRON	_	_	5	nsubj	_	_
+2	var	AUX	_	_	5	cop	_	_
+3	bara	ADV	_	_	5	advmod	_	_
+4	en	DET	_	_	5	det	_	_
+5	pojke	NOUN	_	_	0	root	_	_
+6	med	ADP	_	_	8	case	_	_
+7	smutsiga	ADJ	_	_	8	amod	_	_
+8	skor	NOUN	_	_	5	nmod	_	_
+9	.	PUNCT	_	_	5	punct	_	_
 
 # text = Shenzhens trafikpolis har valt okonventionella straff förut.
 # text_en = Shenzhen's traffic police have opted for unconventional penalties before.
-1	Shenzhens	PROPN	_	_	2:nmod:poss
-2	traffikpolis	NOUN	_	_	4:nsubj
-3	har	AUX	_	_	4:aux
-4	valt	VERB	_	_	0:root
-5	okonvetionella	ADJ	_	_	6:amod
-6	straff	NOUN	_	_	4:obj
-7	förut	ADV	_	_	6:advmod
-8	.	PUNCT	_	_	4:punct
+1	Shenzhens	PROPN	_	_	2	nmod:poss	_	_
+2	traffikpolis	NOUN	_	_	4	nsubj	_	_
+3	har	AUX	_	_	4	aux	_	_
+4	valt	VERB	_	_	0	root	_	_
+5	okonvetionella	ADJ	_	_	6	amod	_	_
+6	straff	NOUN	_	_	4	obj	_	_
+7	förut	ADV	_	_	6	advmod	_	_
+8	.	PUNCT	_	_	4	punct	_	_
 
 # text = Studiet av vulkaner kallas vulkanologi, ibland stavat vulkanologi.
 # text_en = The study of volcanoes is called volcanology, sometimes spelled vulcanology.
-1   Studiet NOUN	_	_	4:nsubj:pass
-2   av  ADP	_	_	3:case
-3   vulkaner    NOUN	_	_	1:nmod
-4   kallas  VERB	_	_	0:root
-5   vulkanologi NOUN	_	_	4:xcomp
-6   ,   PUNCT	_	_	4:punct
-7   ibland  ADV	_	_	8:advmod
-8   stavat  VERB	_	_	4:parataxis
-9   vulkanologi NOUN	_	_	8:obl
-10  .   PUNCT	_	_	4:punct
+1   Studiet NOUN	_	_	4	nsubj:pass	_	_
+2   av  ADP	_	_	3	case	_	_
+3   vulkaner    NOUN	_	_	1	nmod	_	_
+4   kallas  VERB	_	_	0	root	_	_
+5   vulkanologi NOUN	_	_	4	xcomp	_	_
+6   ,   PUNCT	_	_	4	punct	_	_
+7   ibland  ADV	_	_	8	advmod	_	_
+8   stavat  VERB	_	_	4	parataxis	_	_
+9   vulkanologi NOUN	_	_	8	obl	_	_
+10  .   PUNCT	_	_	4	punct	_	_
 
 # text = Det genomfördes strax utanför den mexicanska kusten mellan april och juni.
 # text_en = It was conducted just off the Mexican coast from April to June.
-1	Det	PRON	_	_	2:nsubj:pass
-2	genomfördes	VERB	_	_	0:root
-3	strax	ADV	_	_	7:advmod
-4	utanför	ADP	_	_	7:case
-5	den	DET	_	_	7:det
-6	mexicanska	ADJ	_	_	7:amod
-7	kusten	NOUN	_	_	2:obl
-8	mellan	ADP	_	_	9:case
-9	april	PROPN	_	_	7:obl
-10	och	CCONJ	_	_	11:cc
-11	juni	PROPN	_	_	9:conj
-12	.	PUNCT	_	_	2:punct
+1	Det	PRON	_	_	2	nsubj:pass	_	_
+2	genomfördes	VERB	_	_	0	root	_	_
+3	strax	ADV	_	_	7	advmod	_	_
+4	utanför	ADP	_	_	7	case	_	_
+5	den	DET	_	_	7	det	_	_
+6	mexicanska	ADJ	_	_	7	amod	_	_
+7	kusten	NOUN	_	_	2	obl	_	_
+8	mellan	ADP	_	_	9	case	_	_
+9	april	PROPN	_	_	7	obl	_	_
+10	och	CCONJ	_	_	11	cc	_	_
+11	juni	PROPN	_	_	9	conj	_	_
+12	.	PUNCT	_	_	2	punct	_	_
 
 # text = Hennes röst gick bokstavligt talat runt jorden, sa Leive.
 # text_en = "Her voice literally went around the world," Leive said.
-1   Hennes  PRON	_	_	2:nmod:poss
-2   röst    NOUN	_	_	3:nsubj
-3   gick    VERB	_	_	0:root
-4   bokstavligt ADV	_	_	5:advmod
-5   talat   VERB	_	_	3:advcl
-6   runt    ADP	_	_	7:case
-7   jorden  NOUN	_	_	3:obl
-8   ,   PUNCT	_	_	3:punct
-9   sa  VERB	_	_	3:parataxis
-10  Leive   PROPN	_	_	9:nsubj
-11  .   PUNCT	_	_	3:punct
+1   Hennes  PRON	_	_	2	nmod:poss	_	_
+2   röst    NOUN	_	_	3	nsubj	_	_
+3   gick    VERB	_	_	0	root	_	_
+4   bokstavligt ADV	_	_	5	advmod	_	_
+5   talat   VERB	_	_	3	advcl	_	_
+6   runt    ADP	_	_	7	case	_	_
+7   jorden  NOUN	_	_	3	obl	_	_
+8   ,   PUNCT	_	_	3	punct	_	_
+9   sa  VERB	_	_	3	parataxis	_	_
+10  Leive   PROPN	_	_	9	nsubj	_	_
+11  .   PUNCT	_	_	3	punct	_	_
 
 # text = Ett vittne berättade för polisen att offret hade attackerat den misstänkte i april.
 # text_en = A witness told police that the victim had attacked the suspect in April.
-1   Ett DET	_	_	2:det
-2   vittne  NOUN	_	_	3:nsubj
-3   berättade   VERB	_	_	0:root
-4   för ADP	_	_	5:case
-5   polisen NOUN	_	_	3:obl
-6   att SCONJ	_	_	9:mark
-7   offret  NOUN	_	_	9:nsubj
-8   hade    AUX	_	_	9:aux
-9   attackerat  VERB	_	_	3:ccomp
-10  den DET	_	_	11:det
-11  misstänkte  NOUN	_	_	9:obj
-12  i   ADP	_	_	13:case
-13  april   NOUN	_	_	9:obl
-14  .   PUNCT	_	_	3:punct
+1   Ett DET	_	_	2	det	_	_
+2   vittne  NOUN	_	_	3	nsubj	_	_
+3   berättade   VERB	_	_	0	root	_	_
+4   för ADP	_	_	5	case	_	_
+5   polisen NOUN	_	_	3	obl	_	_
+6   att SCONJ	_	_	9	mark	_	_
+7   offret  NOUN	_	_	9	nsubj	_	_
+8   hade    AUX	_	_	9	aux	_	_
+9   attackerat  VERB	_	_	3	ccomp	_	_
+10  den DET	_	_	11	det	_	_
+11  misstänkte  NOUN	_	_	9	obj	_	_
+12  i   ADP	_	_	13	case	_	_
+13  april   NOUN	_	_	9	obl	_	_
+14  .   PUNCT	_	_	3	punct	_	_
 
 # text_en = Det är som allra tydligast när en kändis namn från början är ganska ovanligt.
 # text = It's most obvious when a celebrity's name is initially quite rare.
-1   Det	PRON _	_	5:nsubj
-2   är	AUX    _	_	5:cop
-3   som SCONJ	_	_	5:mark
-4   allra   ADV	_	_	5:advmod
-5   tydligast   ADJ	_	_	0:root
-6   när SCONJ	_	_	14:mark
-7   en  DET	_	_	8:det
-8   kändis  NOUN	_	_	9:nmod:poss
-9   namn    NOUN	_	_	14:nsubj
-10  från    ADP	_	_	11:mark
-11  början  NOUN	_	_	14:obl
-12  är  AUX	_	_	14:cop
-13  ganska  ADV	_	_	14:advmod
-14  ovanligt    ADJ	_	_	5:advcl
-15  .	_	_	5:punct
+1   Det	PRON _	_	5	nsubj	_	_
+2   är	AUX    _	_	5	cop	_	_
+3   som SCONJ	_	_	5	mark	_	_
+4   allra   ADV	_	_	5	advmod	_	_
+5   tydligast   ADJ	_	_	0	root	_	_
+6   när SCONJ	_	_	14	mark	_	_
+7   en  DET	_	_	8	det	_	_
+8   kändis  NOUN	_	_	9	nmod	poss	_	_
+9   namn    NOUN	_	_	14	nsubj	_	_
+10  från    ADP	_	_	11	mark	_	_
+11  början  NOUN	_	_	14	obl	_	_
+12  är  AUX	_	_	14	cop	_	_
+13  ganska  ADV	_	_	14	advmod	_	_
+14  ovanligt    ADJ	_	_	5	advcl	_	_
+15  .	_	_	5	punct	_	_
 
+!!!!!!!!!!!!!!!!
 # text = Detta har inte hindrat investerare från att flockas för att sätta in sina pengar i fonderna.
 # text_en = This has not stopped investors flocking to put their money in the funds.
-1   Detta	_	_	0:root
-2   har	_	_	0:root
-3   inte	_	_	0:root
-4   hindrat	_	_	0:root
-5   investerare	_	_	0:root
-6   från	_	_	0:root
-7   att	_	_	0:root
-8   flockas	_	_	0:root
-9   för	_	_	0:root
-10  att	_	_	0:root
-11  sätta	_	_	0:root
-12  in	_	_	0:root
-13  sina	_	_	0:root
-14  pengar	_	_	0:root
-15  i	_	_	0:root
-16  fonderna	_	_	0:root
-17  .	_	_	0:root
+1   Detta	_	_	0	root
+2   har	_	_	0	root
+3   inte	_	_	0	root
+4   hindrat	_	_	0	root
+5   investerare	_	_	0	root
+6   från	_	_	0	root
+7   att	_	_	0	root
+8   flockas	_	_	0	root
+9   för	_	_	0	root
+10  att	_	_	0	root
+11  sätta	_	_	0	root
+12  in	_	_	0	root
+13  sina	_	_	0	root
+14  pengar	_	_	0	root
+15  i	_	_	0	root
+16  fonderna	_	_	0	root
+17  .	_	_	0	root
+!!!!!!!!!!!!!!!!
 
 # text = Denna dissonans mellan ekonomiska data och politisk retorik är bekant, eller borde vara det.
 # text_en = This discordance between economic data and political rhetoric is familiar, or should be.
-1   Denna
-2   dissonans
-3   mellan
-4   ekonomiska
-5   data
-6   och
-7   politisk
-8   retorik
-9   är
-10  bekant
-11  ,
-12  eller
-13  borde
-14  vara
-15  det
-16  .
+1   Denna   DET	_	_	2	det	_	_
+2   dissonans   NOUN	_	_	10	nsubj	_	_
+3   mellan  ADP	_	_	5	case	_	_
+4   ekonomiska  ADJ	_	_	5	amod	_	_
+5   data    NOUN	_	_	2	nmod	_	_
+6   och CCONJ	_	_	8	cc	_	_
+7   politisk    ADJ	_	_	8	amod	_	_
+8   retorik NOUN	_	_	5	conj	_	_
+9   är  AUX	_	_	10	cop	_	_
+10  bekant  ADJ	_	_	0	root	_	_
+11  ,   PUNCT	_	_	14	punct	_	_
+12  eller   CCONJ	_	_	14	cc	_	_
+13  borde   AUX	_	_	14	aux	_	_
+14  vara    AUX	_	_	10	conj	_	_
+15  det PRON	_	_	14	obj	_	_
+16  .   PUNCT	_	_	10	punct	_	_
 
 
 # text = Rimlighetsstudien uppskattar att det skulle ta passagerare ungefär fyra minuter att korsa Potomacfloden med gondolen.
 # text_en = The feasibility study estimates that it would take passengers about four minutes to cross the Potomac River on the gondola.
-1   Rimlighetsstudien
-2   uppskattar
-3   att
-4   det
-5   skulle
-6   ta
-7   passagerare
-8   ungefär
-9   fyra
-10  minuter
-11  att
-12  korsa
-13  Potomacfloden
-14  med
-15  gondolen
-16  .
+1   Rimlighetsstudien NOUN	_	_	2	nsubj	_	_
+2   uppskattar  VERB	_	_	0	root	_	_
+3   att SCONJ	_	_	6	mark	_	_
+4   det PRON	_	_	6	expl	_	_
+5   skulle  AUX	_	_	6	aux	_	_
+6   ta  VERB	_	_	2	ccomp	_	_
+7   passagerare NOUN	_	_	6	iobj	_	_
+8   ungefär ADV	_	_	9	advmod	_	_
+9   fyra    NUM	_	_	10	nummod	_	_
+10  minuter NOUN	_	_	6	obj	_	_
+11  att SCONJ	_	_	12	mark	_	_
+12  korsa   VERB	_	_	6	csubj	_	_
+13  Potomacfloden   NOUN	_	_	12	obj	_	_
+14  med ADP	_	_	15	case	_	_
+15  gondolen    NOUN	_	_	12	obl	_	_
+16  .   PUNCT	_	_	2	punct	_	_
 
 # text = han samlade på kort och bytte dem med de andra pojkarna
 # text_en = he collected cards and traded them with the other boys
+1   han PRON	_	_	2	nsubj	_	_
+2   samlade VERB	_	_	0	root	_	_
+3   på  ADP	_	_	4	case	_	_
+4   kort    NOUN	_	_	2	obl	_	_
+5   och CCONJ	_	_	6	case	_	_
+6   bytte   VERB	_	_	2	cconj	_	_
+7   dem PRON	_	_	6	obj	_	_
+8   med ADP	_	_	11	case	_	_
+9   de  DET	_	_	11	det	_	_
+10  andra   ADJ	_	_	 11	amod	_	_
+11  pojkarna    NOUN	_	_	6	obl	_	_
 
 # text = det här brottet har ett straffvärde på fem år i fängelse
 # text_en = this crime carries a penalty of five years in prison
+1   det	_	DET	_	_	0	root	_	_
+2	här	_	ADV	_	_	3	det	predet	_	_
+3	brottet	_	NOUN	_	_	6	nsubj	_	_
+4	har	_	AUX	_	_	6	cop	_	_
+5	ett	_	DET	_	_	6	det	_	_
+6	straffvärde	_	NOUN	_	_	1	acl	_	_
+7	på	_	ADP	_	_	9	case	_	_
+8	fem	_	NUM	_	_	9	nummod	_	_
+9	år	_	NOUN	_	_	1	nmod	_	_
+10	i	_	ADP	_	_	11	case	_	_
+11	fängelse	_	NOUN	_	_	9	nmod	_	_
 
 # text = nyheterna färdades till varje by i provinsen
 # text_en = the news was carried to every village in the province
+1	nyheterna	_	NOUN	_	_	2	nsubj	_	_
+2	färdades	_	VERB	_	_	0	root	_	_
+3	till	_	ADP	_	_	5	case	_	_
+4	varje	_	DET	_	_	5	det	_	_
+5	by	_	NOUN	_	_	2	obl	_	_
+6	i	_	ADP	_	_	7	case	_	_
+7	provinsen	_	NOUN	_	_	5	nmod	_	_
+
 
 # text = jag bär med mig de här tankarna i bakhuvudet
 # text_en = I carry these thoughts in the back of my head
+1	jag	_	PRON	_	_	2	nsubj	_	_
+2	bär	_	VERB	_	_	0	root	_	_
+3	med	_	ADP	_	_	2	compound	prt	_	_
+4	mig	_	PRON	_	_	2	obj	_	_
+5	de	_	PRON	_	_	2	dep	_	_
+6	här	_	ADV	_	_	5	advmod	_	_
+7	tankarna	_	NOUN	_	_	2	dep	_	_
+8	i	_	ADP	_	_	9	case	_	_
+9	bakhuvudet	_	NOUN	_	_	7	nmod	_	_
 
 # text = Adam skulle ha först över till det eviga livet
 # text_en = Adam would have been carried over into the life eternal
+1	Adam	_	PROPN	_	_	3	nsubj	_	_
+2	skulle	_	AUX	_	_	3	aux	_	_
+3	ha	_	AUX	_	_	0	root	_	_
+4	först	_	ADV	_	_	3	advmod	_	_
+5	över	_	ADP	_	_	3	case	_	_
+6	till	_	ADP	_	_	9	case	_	_
+7	det	_	DET	_	_	9	det	_	_
+8	eviga	_	ADJ	_	_	9	amod	_	_
+9	livet	_	NOUN	_	_	3	obl	_	_
 
 # text = skalen hade ruttnat bort och behövde bytas
 # text_en = the casings had rotted away and had to be replaced
+1	skalen	_	NOUN	_	_	3	nsubj	_	_
+2	hade	_	AUX	_	_	3	aux	_	_
+3	ruttnat	_	VERB	_	_	7	csubj	_	_
+4	bort	_	ADP	_	_	3	compound	prt	_	_
+5	och	_	CCONJ	_	_	6	cc	_	_
+6	behövde	_	AUX	_	_	3	conj	_	_
+7	bytas	_	VERB	_	_	0	root	_	_
 
 # text = hon var förgrymmad över att denna flicksnärta hade mage att göra henne till åtlöje inför hela klassen
 # text_en = she was incensed that this chit of a girl should dare to make a fool of her in front of the class
+1	hon	_	PRON	_	_	3	nsubj	_	_
+2	var	_	AUX	_	_	3	cop	_	_
+3	förgrymmad	_	ADJ	_	_	0	root	_	_
+4	över	_	ADP	_	_	3	dep	_	_
+5	att	_	SCONJ	_	_	9	mark	_	_
+6	denna	_	DET	_	_	7	det	_	_
+7	flicksnärta	_	NOUN	_	_	9	nsubj	_	_
+8	hade	_	AUX	_	_	9	cop	_	_
+9	mage	_	NOUN	_	_	3	dep	_	_
+10	att	_	PART	_	_	12	mark	_	_
+11	göra	_	AUX	_	_	12	cop	_	_
+12	henne	_	PRON	_	_	9	acl	_	_
+13	till	_	ADP	_	_	3	dep	_	_
+14	åtlöje	_	ADJ	_	_	3	dep	_	_
+15	inför	_	ADP	_	_	17	case	_	_
+16	hela	_	ADJ	_	_	17	amod	_	_
+17	klassen	_	NOUN	_	_	14	nmod	_	_
 
-# text = 
+# text = jordskredssegern han hade i elektorskollegiet dolde knappheten av en seger baserad på endast 43% av rösterna
 # text_en = the landslide he had in the electoral college obscured the narrowness of a victory based on just 43% of the popular vote
+1	jordskredssegern	_	NOUN	_	_	6	nsubj	_	_
+2	han	_	PRON	_	_	3	nsubj	_	_
+3	hade	_	AUX	_	_	1	acl	_	_
+4	i	_	ADP	_	_	5	case	_	_
+5	elektorskollegiet	_	NOUN	_	_	1	nmod	_	_
+6	dolde	_	VERB	_	_	0	root	_	_
+7	knappheten	_	NOUN	_	_	6	obj	_	_
+8	av	_	ADP	_	_	9	case	_	_
+9	en	_	DET	_	_	7	nmod	_	_
+10	seger	_	NOUN	_	_	11	nsubj	_	_
+11	baserad	_	VERB	_	_	9	acl	_	_
+12	på	_	ADP	_	_	15	case	_	_
+13	endast	_	ADV	_	_	15	det	predet	_	_
+14	43	_	NUM	_	_	15	nummod	_	_
+15	%	_	NOUN	_	_	9	nmod	_	_
+16	av	_	ADP	_	_	17	case	_	_
+17	rösterna	_	NOUN	_	_	15	nmod	_	_
 
+# text = amerikanska trupper bär nu atropin och autoinjektorer i sina första hjälpen-kit för användning vid organofosfat-nervmedelförgiftning
 # text_en = United States troops now carry atropine and autoinjectors in their first-aid kits to use in case of organophosphate nerve agent poisoning
+1	amerikanska	_	ADJ	_	_	2	amod	_	_
+2	trupper	_	NOUN	_	_	3	nsubj	_	_
+3	bär	_	VERB	_	_	0	root	_	_
+4	nu	_	ADV	_	_	5	det	predet	_	_
+5	atropin	_	NOUN	_	_	3	iobj	_	_
+6	och	_	CCONJ	_	_	7	cc	_	_
+7	autoinjektorer	_	NOUN	_	_	5	conj	_	_
+8	i	_	ADP	_	_	10	case	_	_
+9	sina	_	PRON	_	_	10	nmod	poss	_	_
+10	första	_	NOUN	_	_	5	nmod	_	_
+11	hjälpen-kit	_	NOUN	_	_	3	obj	_	_
+12	för	_	ADP	_	_	3	case	_	_
+13	användning	_	VERB	_	_	3	dep	_	_
+14	vid	_	ADP	_	_	13	compound	prt	_	_
+15	organofosfat-nervmedelförgiftning	_	NOUN	_	_	13	obj	_	_
 
+
+# text = han kan åstadkomma med list på lång sikt vad han inte kan göra med tvång och våld på kort sikt
 # text_en = he may accomplish by craft in the long run what he cannot do by force and violence in the short one
+1	han	_	PRON	_	_	3	nsubj	_	_
+2	kan	_	AUX	_	_	3	aux	_	_
+3	åstadkomma	_	VERB	_	_	0	root	_	_
+4	med	_	ADP	_	_	3	compound	prt	_	_
+5	list	_	NOUN	_	_	3	obj	_	_
+6	på	_	ADP	_	_	8	case	_	_
+7	lång	_	ADJ	_	_	8	amod	_	_
+8	sikt	_	NOUN	_	_	5	nmod	_	_
+9	vad	_	PRON	_	_	13	nsubj	_	_
+10	han	_	PRON	_	_	12	nsubj	_	_
+11	inte	_	ADV	_	_	12	advmod	_	_
+12	kan	_	AUX	_	_	9	acl	_	_
+13	göra	_	VERB	_	_	8	acl	_	_
+14	med	_	ADP	_	_	15	case	_	_
+15	tvång	_	NOUN	_	_	8	nmod	_	_
+16	och	_	CCONJ	_	_	17	cc	_	_
+17	våld	_	NOUN	_	_	15	conj	_	_
+18	på	_	ADP	_	_	20	case	_	_
+19	kort	_	ADJ	_	_	20	amod	_	_
+20	sikt	_	NOUN	_	_	15	nmod	_	_
 
+
+# text = det har sagts att endast ett hierarkiskt samhälle med en klass av rika och sysslolösa på toppen kan producera konstverk
 # text_en = it has been said that only a hierarchical society with a leisure class at the top can produce works of art
+1	det	_	PRON	_	_	3	nsubj	_	_
+2	har	_	AUX	_	_	3	aux	_	_
+3	sagts	_	VERB	_	_	0	root	_	_
+4	att	_	SCONJ	_	_	3	dep	_	_
+5	endast	_	ADV	_	_	8	det	predet	_	_
+6	ett	_	DET	_	_	8	det	_	_
+7	hierarkiskt	_	ADJ	_	_	8	amod	_	_
+8	samhälle	_	NOUN	_	_	3	dep	_	_
+9	med	_	ADP	_	_	11	case	_	_
+10	en	_	DET	_	_	11	det	_	_
+11	klass	_	NOUN	_	_	8	nmod	_	_
+12	av	_	ADP	_	_	3	dep	_	_
+13	rika	_	ADJ	_	_	3	dep	_	_
+14	och	_	CCONJ	_	_	15	cc	_	_
+15	sysslolösa	_	ADJ	_	_	13	conj	_	_
+16	på	_	ADP	_	_	17	case	_	_
+17	toppen	_	NOUN	_	_	13	nmod	_	_
+18	kan	_	AUX	_	_	3	dep	_	_
+19	producera	_	VERB	_	_	3	dep	_	_
+20	konstverk	_	NOUN	_	_	19	obj	_	_
 
+# text = hans geniala förklaring att han inte skulle ha bränt ned kyrkan om han inte hade trott att biskopen var i den
 # text_en = his ingenuous explanation that he would not have burned the church if he had not thought the bishop was in it
+1	hans	_	PRON	_	_	0	root	_	_
+2	geniala	_	ADJ	_	_	1	dep	_	_
+3	förklaring	_	VERB	_	_	1	dep	_	_
+4	att	_	SCONJ	_	_	9	mark	_	_
+5	han	_	PRON	_	_	9	nsubj	_	_
+6	inte	_	PART	_	_	7	mark	_	_
+7	skulle	_	AUX	_	_	8	csubj	_	_
+8	ha	_	AUX	_	_	5	acl	_	_
+9	bränt	_	VERB	_	_	3	ccomp	_	_
+10	ned	_	ADP	_	_	9	compound	prt	_	_
+11	kyrkan	_	NOUN	_	_	9	obj	_	_
+12	om	_	SCONJ	_	_	16	mark	_	_
+13	han	_	PRON	_	_	16	nsubj	_	_
+14	inte	_	PART	_	_	15	mark	_	_
+15	hade	_	AUX	_	_	13	acl	_	_
+16	trott	_	VERB	_	_	11	acl	_	_
+17	att	_	SCONJ	_	_	19	mark	_	_
+18	biskopen	_	NOUN	_	_	19	nsubj	_	_
+19	var	_	AUX	_	_	16	ccomp	_	_
+20	i	_	ADP	_	_	21	case	_	_
+21	den	_	PRON	_	_	11	nmod	_	_
