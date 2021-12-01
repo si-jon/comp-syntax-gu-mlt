@@ -10,7 +10,7 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
 
     S = {s : Str} ;
     VP = {verb : Verb ; compl : Str} ;
-    Comp = {s : Number => Species => Gender => Str} ;
+    Comp = {s : Str} ;
     AP = Adjective ;
     CN = Noun ;
     NP = {s : Case => Str } ;
@@ -30,7 +30,7 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
 
 -- Sentence
     PredVPS np vp = {
-        s = np.s ! Nom ++ vp.verb.s ! Pres
+        s = np.s ! Nom ++ vp.verb.s ! Pres ++ vp.compl
     } ;
 
 -- Verb
@@ -46,15 +46,15 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
 
     UseComp comp = {
         verb = be_Verb ;
-        compl = []
+        compl = comp.s
     } ;
 
-    CompAP ap = ap ;
-
-    AdvVP vp adv = {
-      verb = vp.verb ;
-      compl = vp.compl ++ adv.s;
+    CompAP ap = {
+        s = ap.s ! Sg ! Indef ! Utr
     } ;
+
+    AdvVP vp adv = 
+      vp ** {compl = vp.compl ++ adv.s} ;
 
 -- Noun
     DetCN det cn = {
