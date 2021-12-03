@@ -9,13 +9,13 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
     Utt = {s : Str} ;
 
     S = {s : Str} ;
-    VP = {verb : Verb ; compl : Str} ;
-    Comp = {s : Str} ;
+    VP = {verb : Verb ; compl : Complement} ;
+    Comp = {s : Complement} ;
     AP = Adjective ;
-    CN = Noun ;
-    NP = {s : Case => Str } ;
-    Pron = {s : Case => Str};
-    Det = {s : Gender => Str ; n : Number ; sp : Species} ;
+    CN = {s : Noun ; hasComp : HasComp} ;
+    NP = {s : Case => Str ; a : Agreement} ;
+    Pron = {s : Case => Str ; a : Agreement};
+    Det = {s : HasComp => Gender => Str ; n : Number ; sp : Species} ;
     Prep = {s : Str};
     V = Verb ;
     V2 = Verb2 ;
@@ -26,22 +26,21 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
   lin
 -- Phrase
     UttS s = s ;
-    UttNP np = {s = np.s ! Obj} ;
+    UttNP np = {s = np.s ! Nom} ;
 
 -- Sentence
     PredVPS np vp = {
-        s = np.s ! Nom ++ vp.verb.s ! Pres ++ vp.compl
+        s = np.s ! Nom ++ vp.verb.s ! Pres ++ vp.compl.s ! np.a
     } ;
-
--- Verb
+  
     UseV v = {
         verb = v ;
-        compl = [] ;
+        compl = str2comp [];
     } ;
 
     ComplV2 v2 np = {
         verb = v2 ;
-        compl = v2.c ++ np.s ! Obj
+        compl =  str2comp (v2.c ++ np.s ! Obj)
     } ;
 
     UseComp comp = {
@@ -50,55 +49,73 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
     } ;
 
     CompAP ap = {
-        s = ap.s ! Sg ! Indef ! Utr
+        s = adj2comp ap
     } ;
 
-    AdvVP vp adv = 
-      vp ** {compl = vp.compl ++ adv.s} ;
+    AdvVP vp adv =
+      vp ** {compl = add2comp vp.compl adv.s} ;
 
 -- Noun
     DetCN det cn = {
-        s = \\c => det.s ! cn.g ++ cn.s ! det.n ! det.sp ;
+      s = \\c => det.s ! cn.hasComp ! cn.s.g ++ cn.s.s ! det.n ! det.sp ;
+      a = Agr det.n det.sp cn.s.g
     } ;
 
     UsePron p = p ;
 
     a_Det = {
       s = table {
-           Utr => "en" ;
-           Neutr => "ett"
-      } ;
-      n = Sg ;
-      sp = Indef
-    } ;
-    aPl_Det = {
-      s = table { _ => "flera" } ;
-      n = Pl ;
-      sp = Indef
-    } ;
-    the_Det = {
-      s = table {
-        Utr => "den" ;
-        Neutr => "det"
-      } ;
-      n = Sg ;
-      sp = Def
-    } ;
-    thePl_Det = {
-      s = table { _ => "de" } ;
-      n = Pl ;
-      sp = Def
-    } ;
-
-    UseN n = n ;
-
-    AdjCN ap cn = {
-      g = cn.g ;
-      s = table {
-        n => table {
-          sp => ap.s ! n ! sp ! cn.g ++ cn.s ! n ! sp
+        _ => table {
+          Utr => "en" ;
+          Neutr => "ett"
         }
       } ;
+      n = Sg ;
+      sp = Indef
+    } ;
+
+    aPl_Det = {
+      s = \\_ => \\_ => [];
+      n = Pl ;
+      sp = Indef
+    } ;
+
+    the_Det = {
+      s = table {
+        Yes => table {
+          Utr => "den" ;
+          Neutr => "det"
+        } ;
+        No => table { _ => [] }
+      } ;
+      n = Sg ;
+      sp = Def
+    } ;
+
+    thePl_Det = {
+      s = table {
+        Yes => table { _ => "de" } ;
+        No => table { _ => [] }
+      } ;
+      n = Pl ;
+      sp = Def
+    } ;
+
+    UseN n = {
+      s = n ;
+      hasComp = No
+    };
+
+    AdjCN ap cn = {
+      s = {
+        g = cn.s.g ;
+        s = table {
+          n => table {
+            sp => ap.s ! n ! sp ! cn.s.g ++ cn.s.s ! n ! sp
+          }
+        } ;
+      } ;
+      hasComp = Yes
     } ;
 
 -- Adjective
@@ -115,20 +132,23 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
     with_Prep = {s = "med"} ;
 
     he_Pron = {
-      s = table {Nom => "han" ; Obj => "honom"}
+      s = table {Nom => "han" ; Obj => "honom"} ;
+      a = Agr Sg Def Utr
     } ;
     she_Pron = {
-      s = table {Nom => "hon" ; Obj => "henne"}
+      s = table {Nom => "hon" ; Obj => "henne"} ;
+      a = Agr Sg Def Utr
     } ;
     they_Pron = {
-      s = table {Nom => "de" ; Obj => "dem"}
+      s = table {Nom => "de" ; Obj => "dem"} ;
+      a = Agr Pl Def Utr
     } ;
 
 -----------------------------------------------------
 ---------------- Lexicon part -----------------------
 -----------------------------------------------------
 
-  lin already_Adv = mkAdv "already" ;
+  lin already_Adv = mkAdv "redan" ;
   lin animal_N = mkN "djur" Neutr ;
   lin apple_N = mkN "äpple" Neutr ;
   lin baby_N = mkN "bebis" Utr ;
@@ -181,11 +201,11 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
   lin live_V = mkV "leva" "lever" "levde" "levt" ;
   lin love_V2 = mkV2 "älska" ;
   lin man_N = mkN "man" "mannen" "män" "männen" Utr ;
-  lin milk_N = mkN "mjölk" "mjölken" "mjölk" "mjölken" Utr;
-  lin music_N = mkN "musik" "musiken" "musik" "musiken" Utr ;
+  lin milk_N = mkN "mjölk" "mjölken" "mjölkar" "mjölkarna" Utr;
+  lin music_N = mkN "musik" "musiken" "musiker" "musiken" Utr ;
   lin new_A = mkA "ny" "nytt" "nya" "nya" ;
-  lin now_Adv = mkAdv "now" ;
-  lin old_A = mkA "gammal" ;
+  lin now_Adv = mkAdv "nu" ;
+  lin old_A = mkA "gammal" "gammalt" "gamla" "gamla" ;
   lin play_V = mkV "leka" "leker" "lekte" "lekt" ;
   lin read_V2 = mkV2 (mkV "läsa" "läser" "läste" "läst") ;
   lin ready_A = mkA "redo" "redo" "redo" "redo" ;
@@ -232,7 +252,6 @@ concrete MicroLangSwe of MicroLang = open MicroResSwe in {
       mkA : Str -> Str -> Str -> Str -> A -- very irregular adjective
         = \utrSgIndef,neutrSgIndef,sgDef,pl -> lin A (mkAdjective utrSgIndef neutrSgIndef sgDef pl) ;
     } ;
-
 
     mkV = overload {
       mkV : (inf : Str) -> V  -- predictable verb, e.g. baka-bakar-bakade-bakat, titta-tittar-tittade-tittat

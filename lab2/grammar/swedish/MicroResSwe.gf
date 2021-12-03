@@ -4,11 +4,13 @@ resource MicroResSwe = {
     Number = Sg | Pl ;
     Species = Indef | Def ;
     Gender = Utr | Neutr ;
-    Degree = Positive | Comparative | Superlative ;
     Case = Nom | Obj ;
 
-
     VForm = Inf | Pres | Pret | Perf ;
+    CompType = Empty | NounP | AdjP | AdvP ;
+    HasComp = Yes | No ;
+
+    Agreement = Agr Number Species Gender ;
 
   oper
     -- Noun
@@ -32,10 +34,10 @@ resource MicroResSwe = {
         dat + "or" => mkNoun sgIndef (dat + "orn") (dat + "orer") (dat + "orerna") gen ;
         _ => mkNoun sgIndef (sgIndef + "en") (sgIndef + "ar") (sgIndef + "arna") gen
       } ;
-    Neutr => case sgIndef of {
-      äppl + "e" => mkNoun sgIndef (äppl + "et")  (äppl + "en") (äppl + "ena") gen ;
-      vatt + "en" => mkNoun sgIndef (vatt + "net")  (vatt + "en") (vatt + "nen") gen ;
-      _ => mkNoun sgIndef (sgIndef + "et") (sgIndef) (sgIndef + "en") gen
+      Neutr => case sgIndef of {
+        äppl + "e" => mkNoun sgIndef (äppl + "et")  (äppl + "en") (äppl + "ena") gen ;
+        vatt + "en" => mkNoun sgIndef (vatt + "net")  (vatt + "en") (vatt + "nen") gen ;
+        _ => mkNoun sgIndef (sgIndef + "et") (sgIndef) (sgIndef + "en") gen
       }
     } ;
 
@@ -86,4 +88,20 @@ resource MicroResSwe = {
 
     be_Verb : Verb = mkVerb "vara" "är" "var" "varit" ;
 
+    -- Complement
+    Complement : Type = {s : Agreement => Str} ;
+
+    adj2comp : Adjective -> Complement = \a -> {
+        s = table { 
+          Agr num spec gen => a.s ! num ! Indef ! gen
+        }
+    } ;
+
+    str2comp : Str -> Complement = \str -> {
+        s = \\_ => str
+    } ;
+
+    add2comp : Complement -> Str -> Complement = \comp, str -> {
+      s = table { Agr num spec gen => comp.s ! Agr num spec gen ++ str }
+    } ;
 }
