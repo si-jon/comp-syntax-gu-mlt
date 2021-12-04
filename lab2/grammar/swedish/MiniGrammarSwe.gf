@@ -29,7 +29,7 @@ in {
     QCl = Cl ** {isWh : Bool} ;
     Imp = {s : Bool => Str} ;
 
-    VP = {verb : Verb ; compl : Complement} ;
+    VP = {verb : GVerb ; compl : Complement} ;
     Comp = {s : Complement} ;
     AP = Adjective ;
     CN = {s : Noun ; hasComp : HasComp} ;
@@ -59,54 +59,86 @@ in {
     UttImpSg pol imp = {s = pol.s ++ imp.s ! pol.isTrue} ;
 
 -- Sentence
---    UseCl     : Temp -> Pol -> Cl   -> S ;  -- John has not walked
-    UseCl temp pol cl = {
-      s = cl.subj ++ (cl.verb ! temp.isPres ! pol.isTrue).fin ++ cl.compl
-    } ;
---    UseQCl    : Temp -> Pol -> QCl  -> QS ; -- has John walked
+    UseCl temp pol cl =
+      let
+        isPos = pol.isTrue ;
+        isPres = temp.isPres ;
+        clt = cl.verb ! isPos ! isPres ;
+        verborder = case isPos of { -- dricker / har druckit
+          True => case isPres of {
+            _  => clt.fin ++ clt.inf 
+          } ;
+          False => case isPres of {
+            True  => clt.fin ++ clt.inf ++ "inte"   ;  -- dricker inte 
+            False => clt.fin ++ "inte"  ++ clt.inf      -- har inte druckit
+          }
+	      }
+      in {
+        s = pol.s ++ temp.s ++  --- needed for parsing: a GF hack
+        cl.subj ++
+        verborder ++
+        cl.compl
+      } ;
+
+    UseQCl temp pol qcl =
+      let
+        isWh = qcl.isWh ;
+        clt = qcl.verb ! andB isWh pol.isTrue ! temp.isPres ;
+        verbsubj = case isWh of {
+	        True  => qcl.subj ++ clt.fin ;      -- no inversion in Wh questions
+	        False => clt.fin ++ qcl.subj
+	      }
+      in {
+        s = pol.s ++ temp.s ++
+	      clt.inf ++               -- drink
+	      verbsubj ++
+	      negation pol.isTrue ++   -- not
+	      qcl.compl                -- beer
+      } ;
 
     PredVP np vp = {
       subj = np.s ! Nom ;
       compl = vp.compl.s ! np.a ;
-      verb = \\plain,isPres => case <True, plain, isPres, np.a> of {
+      verb = \\plain,isPres => case <vp.verb.isAux, plain, isPres> of {
 
-        -- non-auxiliary verbs, negative/question present: "does (not) drink" 
-        <False,False,True,_> => {fin = "does" ; inf = []} ;--inf = vp.verb.s ! VF Inf} ;
-        <_,_,_,_          > => {fin = "do"   ; inf = []} --inf = vp.verb.s ! VF Inf} ;
-	
-        -- non-auxiliary, plain present ; auxiliary, all present: "drinks", "is (not)"
-        --<_,_, True, Agr Sg> => {fin = [] ; inf = []} ;
-        --<_,_, True, Agr Sg> => {fin = [] ; inf = []} ;
-        --<_,_, True, _>           => {fin = [] ; inf = []} ;
-
-        -- all verbs, past: "has (not) drunk", "has (not) been"
-        --<_,_, False,Agr Sg> => {fin = "has"  ; inf = []} ;
-        --<_,_, False,_          > => {fin = "have" ; inf = []} 
-
-        -- the negation word "not" is put in place in UseCl, UseQCl
+        <False, _, True> => {fin = []; inf = vp.verb.s ! VF Pres} ;
+        <_, _, True> => {fin = []; inf = vp.verb.s ! VF Pres} ;
+        <_,_, False> => {fin = "har" ; inf = vp.verb.s ! VF Supine }
       }
     } ;
 
---    QuestCl   : Cl -> QCl ;                 -- does John (not) walk
---    QuestVP   : IP -> VP -> QCl ;           -- who does (not) walk
---    ImpVP     : VP -> Imp ;                 -- walk / do not walk
+    QuestCl cl = cl ** {isWh = False} ; -- since the parts are the same, we don't need to change anything
+    
+    QuestVP ip vp = PredVP ip vp ** {isWh = True} ; 
+
+    ImpVP vp = {
+      s = table {
+        True  => vp.verb.s ! VF Inf ++ vp.compl.s ! Agr Sg Def Utr  ;
+        False => vp.verb.s ! VF Inf ++ "inte" ++ vp.compl.s ! Agr Sg Def Utr 
+      }
+    } ;
 
 -- Verb
     UseV v = {
-      verb = v ;
+      verb = verb2gverb v ;
       compl = str2comp [];
     } ;
 
     ComplV2 v2 np = {
-      verb = v2 ;
+      verb = verb2gverb v2 ;
       compl =  str2comp (v2.c ++ np.s ! Obj)
     } ;
 
---    ComplVS   : VS -> S -> VP ;         -- know that it is good
---    ComplVV   : VV -> VP -> VP ;        -- want to be good
+    ComplVS vs sent = {
+      verb = verb2gverb vs ;
+      compl = str2comp sent.s
+    } ;
+
+    ComplVV vv vp = 
+      vp ** {compl = vv2comp vv} ;
 
     UseComp comp = {
-      verb = be_Verb ;
+      verb = be_GVerb ;
       compl = comp.s
     } ;
 
@@ -114,8 +146,13 @@ in {
       s = adj2comp ap
     } ;
 
---    CompNP    : NP  -> Comp ;           -- a man
---    CompAdv   : Adv -> Comp ;           -- in the house
+    CompNP np = {
+      s = str2comp (np.s ! Nom)
+    } ;
+
+    CompAdv adv = {
+      s = str2comp adv.s
+    } ;
 
     AdvVP vp adv =
       vp ** {compl = add2comp vp.compl adv.s} ;
@@ -126,11 +163,17 @@ in {
       a = Agr det.n det.sp cn.s.g
     } ;
 
---    UsePN     : PN -> NP ;              -- John
+    UsePN pn = {
+      s = \\_ => pn.s ;
+      a = Agr Sg Def Utr
+    } ;
 
     UsePron p = p ;
 
---    MassNP    : CN -> NP ;              -- milk
+    MassNP cn = {
+      s = \\_ => cn.s.s ! Sg ! Def ;
+      a = Agr Sg Def Utr
+    } ;
 
     a_Det = {
       s = table {
@@ -205,10 +248,10 @@ in {
     CoordS conj a b = {s = a.s ++ conj.s ++ b.s} ;
 
 -- Tense
-    PPos = {s = [] ; isTrue = True} ;
-    PNeg = {s = [] ; isTrue = False} ;
-    TSim = {s = [] ; isPres = True} ;
-    TAnt = {s = []    ; isPres = False} ;
+    PPos = {s = [] ; isTrue = True} ;      -- I sleep  [positive polarity]
+    PNeg = {s = [] ; isTrue = False} ;     -- I do not sleep [negative polarity]
+    TSim = {s = [] ; isPres = True} ;      -- simultanous: she sleeps ---s
+    TAnt = {s = [] ; isPres = False} ;     -- anterior: she has slept ---s
 
 -- Structural
     and_Conj = {s = "och"} ;

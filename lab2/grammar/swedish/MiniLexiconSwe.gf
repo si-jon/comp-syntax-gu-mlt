@@ -1,5 +1,4 @@
 --# -path=.:../abstract
---# -path=.:/home/sigrid/.gf/prelude
 
 concrete MiniLexiconSwe of MiniLexicon = MiniGrammarSwe **
   open

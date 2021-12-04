@@ -7,7 +7,7 @@ resource MiniResSwe = open Prelude in {
     Gender = Utr | Neutr ;
     Case = Nom | Obj ;
 
-    VForm = Inf | Pres | Pret | Perf ;
+    VForm = Inf | Pres | Pret | Supine ;
     CompType = Empty | NounP | AdjP | AdvP ;
     HasComp = Yes | No ;
 
@@ -68,26 +68,26 @@ resource MiniResSwe = open Prelude in {
     -- Verb
     Verb : Type = {s : VForm => Str} ;
 
-    mkVerb : (inf,pres,pret,perf : Str) -> Verb
-      = \inf,pres,pret,perf -> {
+    mkVerb : (inf,pres,pret,supine : Str) -> Verb
+      = \inf,pres,pret,supine -> {
         s = table {
-          Inf => inf ;
-          Pres => pres ;
-          Pret => pret ;
-          Perf => perf
+          Inf       => inf ;
+          Pres      => pres ;
+          Pret      => pret ;
+          Supine    => supine
         }
     } ;
 
     regVerb : (inf : Str) -> Verb = \inf ->
       mkVerb inf (inf + "r") (inf + "de") (inf + "t") ;
 
-    irregVerb : (inf,pres,pret,perf : Str) -> Verb =
-      \inf,pres,pret,perf ->
-        mkVerb inf pres pret perf ;
+    irregVerb : (inf,pres,pret,supine : Str) -> Verb =
+      \inf,pres,pret,supine ->
+        mkVerb inf pres pret supine ;
 
     Verb2 : Type = Verb ** {c : Str} ;
 
-    be_Verb : Verb = mkVerb "vara" "är" "var" "varit" ;
+    negation : Bool -> Str = \b -> case b of {True => [] ; False => "inte"} ; 
 
     -- Complement
     Complement : Type = {s : Agreement => Str} ;
@@ -98,6 +98,13 @@ resource MiniResSwe = open Prelude in {
         }
     } ;
 
+-- FIXA!!
+    vv2comp : Verb -> Complement = \vv -> {
+        s = table { 
+          Agr num spec gen => vv.s ! Inf
+        }
+    } ;
+
     str2comp : Str -> Complement = \str -> {
         s = \\_ => str
     } ;
@@ -105,4 +112,30 @@ resource MiniResSwe = open Prelude in {
     add2comp : Complement -> Str -> Complement = \comp, str -> {
       s = table { Agr num spec gen => comp.s ! Agr num spec gen ++ str }
     } ;
+    
+-- generalized verb, here just "be"
+  param
+    GVForm = VF VForm ;    
+
+  oper
+    GVerb : Type = {
+      s : GVForm => Str ;
+      isAux : Bool
+    } ;
+
+    be_GVerb : GVerb = {
+      s = table {
+        VF vf => (mkVerb "vara" "är" "var" "varit").s ! vf
+      } ;
+      isAux = True
+    } ;
+
+  -- in VP formation, all verbs are lifted to GVerb, but morphology doesn't need to know this
+    verb2gverb : Verb -> GVerb = \v -> {s =
+      table {
+        VF vf   => v.s ! vf
+      } ;
+      isAux = False
+    } ;
+
 }
