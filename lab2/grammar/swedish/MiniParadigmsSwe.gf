@@ -25,8 +25,8 @@ in {
     mkV = overload {
       mkV : (inf : Str) -> V  -- predictable verb, e.g. baka-bakar-bakade-bakat, titta-tittar-tittade-tittat
         = \s -> lin V (regVerb s) ;
-      mkV : (inf,pres,pret,perf : Str) -> V  -- irregular verb, e.g. sjunga-sjunger-sjöng-sjungit
-        = \inf,pres,pret,perf -> lin V (irregVerb inf pres pret perf) ;
+      mkV : (inf,pres,pret,supine,imp : Str) -> V  -- irregular verb, e.g. sjunga-sjunger-sjöng-sjungit
+        = \inf,pres,pret,supine,imp -> lin V (irregVerb inf pres pret supine imp) ;
     } ;
 
     mkV2 = overload {

@@ -7,7 +7,7 @@ resource MiniResSwe = open Prelude in {
     Gender = Utr | Neutr ;
     Case = Nom | Obj ;
 
-    VForm = Inf | Pres | Pret | Supine ;
+    VForm = Inf | Pres | Pret | Supine | Imperativ ;
     CompType = Empty | NounP | AdjP | AdvP ;
     HasComp = Yes | No ;
 
@@ -68,22 +68,23 @@ resource MiniResSwe = open Prelude in {
     -- Verb
     Verb : Type = {s : VForm => Str} ;
 
-    mkVerb : (inf,pres,pret,supine : Str) -> Verb
-      = \inf,pres,pret,supine -> {
+    mkVerb : (inf,pres,pret,supine,imp : Str) -> Verb
+      = \inf,pres,pret,supine,imp -> {
         s = table {
           Inf       => inf ;
           Pres      => pres ;
           Pret      => pret ;
-          Supine    => supine
+          Supine    => supine ;
+          Imperativ       => imp
         }
     } ;
 
     regVerb : (inf : Str) -> Verb = \inf ->
-      mkVerb inf (inf + "r") (inf + "de") (inf + "t") ;
+      mkVerb inf (inf + "r") (inf + "de") (inf + "t") inf ;
 
-    irregVerb : (inf,pres,pret,supine : Str) -> Verb =
-      \inf,pres,pret,supine ->
-        mkVerb inf pres pret supine ;
+    irregVerb : (inf,pres,pret,supine,imp : Str) -> Verb =
+      \inf,pres,pret,supine,imp ->
+        mkVerb inf pres pret supine imp ;
 
     Verb2 : Type = Verb ** {c : Str} ;
 
@@ -125,7 +126,7 @@ resource MiniResSwe = open Prelude in {
 
     be_GVerb : GVerb = {
       s = table {
-        VF vf => (mkVerb "vara" "är" "var" "varit").s ! vf
+        VF vf => (mkVerb "vara" "är" "var" "varit" "var").s ! vf
       } ;
       isAux = True
     } ;

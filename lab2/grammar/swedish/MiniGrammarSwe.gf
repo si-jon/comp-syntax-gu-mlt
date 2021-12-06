@@ -82,18 +82,35 @@ in {
 
     UseQCl temp pol qcl =
       let
+        isPos = pol.isTrue ;
+        isPres = temp.isPres ;
         isWh = qcl.isWh ;
-        clt = qcl.verb ! andB isWh pol.isTrue ! temp.isPres ;
-        verbsubj = case isWh of {
-	        True  => qcl.subj ++ clt.fin ;      -- no inversion in Wh questions
-	        False => clt.fin ++ qcl.subj
+        clt = qcl.verb ! andB isWh isPos ! isPres ;
+        verbsubjorder = case isWh of {
+          True => case isPos of {
+            True => case isPres of {
+              _  => qcl.subj ++ clt.fin ++ clt.inf 
+            } ;
+            False => case isPres of {
+              True  => qcl.subj ++ clt.fin ++ clt.inf ++ "inte"   ;   -- vem dricker inte 
+              False => qcl.subj ++ clt.fin ++ "inte"  ++ clt.inf      -- vem har inte druckit
+            }
+          } ;
+          False => case isPos of {
+            True => case isPres of {
+              True => clt.fin ++ clt.inf ++ qcl.subj ;  -- dricker John
+              False => clt.fin ++ qcl.subj ++ clt.inf   -- har john druckit
+            } ;
+            False => case isPres of {
+              True  => clt.fin ++ clt.inf ++ "inte" ++ qcl.subj   ;  -- dricker inte John --- Ambigous, could also be "dricker John inte"
+              False => clt.fin ++ qcl.subj ++ "inte"  ++ clt.inf      -- har John inte druckit --- Ambigous, could also be "har inte John druckit"
+            }
+          }
 	      }
       in {
         s = pol.s ++ temp.s ++
-	      clt.inf ++               -- drink
-	      verbsubj ++
-	      negation pol.isTrue ++   -- not
-	      qcl.compl                -- beer
+        verbsubjorder ++
+	      qcl.compl                -- öl
       } ;
 
     PredVP np vp = {
@@ -111,10 +128,12 @@ in {
     
     QuestVP ip vp = PredVP ip vp ** {isWh = True} ; 
 
-    ImpVP vp = {
+    ImpVP vp = let 
+      comp = vp.compl.s ! Agr Sg Def Utr -- Hardcoded agreement, not pretty
+    in {
       s = table {
-        True  => vp.verb.s ! VF Inf ++ vp.compl.s ! Agr Sg Def Utr  ;
-        False => vp.verb.s ! VF Inf ++ "inte" ++ vp.compl.s ! Agr Sg Def Utr 
+        True  => vp.verb.s ! VF Imperativ ++ comp  ;
+        False => vp.verb.s ! VF Imperativ ++ "inte" ++ comp
       }
     } ;
 
@@ -215,7 +234,7 @@ in {
 
     every_Det = {
       s = \\_ => \\_ => "varje";
-      n = Pl ;
+      n = Sg ;
       sp = Indef
     } ;
 
@@ -298,7 +317,7 @@ in {
     where_IAdv = {s = "var"} ;
     why_IAdv = {s = "varför"} ;
 
-    have_V2 = mkVerb "ha" "har" "hade" "haft"  ** {c = []} ;
-    want_VV = mkVerb "vilja" "vill" "ville" "velat"  ** {c = []} ;
+    have_V2 = mkVerb "ha" "har" "hade" "haft" "ha"  ** {c = []} ;
+    want_VV = mkVerb "vilja" "vill" "ville" "velat" "vet"  ** {c = []} ;
 
 }
