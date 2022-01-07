@@ -32,11 +32,11 @@ in {
     VP = {verb : GVerb ; compl : Complement} ;
     Comp = {s : Complement} ;
     AP = Adjective ;
-    CN = {s : Noun ; hasComp : HasComp} ;
+    CN = {s : Noun ; hasComp : Bool} ;
     NP = {s : Case => Str ; a : Agreement} ;
     IP = {s : Case => Str ; a : Agreement} ; -- interrogative phrase
     Pron = {s : Case => Str ; a : Agreement};
-    Det = {s : HasComp => Gender => Str ; n : Number ; sp : Species} ;
+    Det = {s : Bool => Gender => Str ; n : Number ; sp : Species} ;
     Conj = {s : Str} ;
     Prep = {s : Str} ;
     V = Verb ;
@@ -115,7 +115,7 @@ in {
 
     PredVP np vp = {
       subj = np.s ! Nom ;
-      compl = vp.compl.s ! np.a ;
+      compl = vp.compl.s ! AgrVerb ;
       verb = \\plain,isPres => case <vp.verb.isAux, plain, isPres> of {
 
         <False, _, True> => {fin = []; inf = vp.verb.s ! VF Pres} ;
@@ -128,12 +128,10 @@ in {
     
     QuestVP ip vp = PredVP ip vp ** {isWh = True} ; 
 
-    ImpVP vp = let 
-      comp = vp.compl.s ! Agr Sg Def Utr -- Hardcoded agreement, not pretty
-    in {
+    ImpVP vp = {
       s = table {
-        True  => vp.verb.s ! VF Imperativ ++ comp  ;
-        False => vp.verb.s ! VF Imperativ ++ "inte" ++ comp
+        True  => vp.verb.s ! VF Imperativ ++ vp.compl.s ! AgrVerb;
+        False => vp.verb.s ! VF Imperativ ++ "inte" ++ vp.compl.s ! AgrVerb
       }
     } ;
 
@@ -153,8 +151,10 @@ in {
       compl = str2comp sent.s
     } ;
 
-    ComplVV vv vp = 
-      vp ** {compl = vv2comp vv} ;
+    ComplVV vv vp = {
+      verb = verb2gverb vv ;
+      compl = gv2comp vp.verb
+    } ;
 
     UseComp comp = {
       verb = be_GVerb ;
@@ -179,19 +179,19 @@ in {
 -- Noun
     DetCN det cn = {
       s = \\c => det.s ! cn.hasComp ! cn.s.g ++ cn.s.s ! det.n ! det.sp ;
-      a = Agr det.n det.sp cn.s.g
+      a = AgrAdj det.n det.sp cn.s.g
     } ;
 
     UsePN pn = {
       s = \\_ => pn.s ;
-      a = Agr Sg Def Utr
+      a = AgrAdj Sg Def Utr
     } ;
 
     UsePron p = p ;
 
     MassNP cn = {
       s = \\_ => cn.s.s ! Sg ! Def ;
-      a = Agr Sg Def Utr
+      a = AgrAdj Sg Def Utr
     } ;
 
     a_Det = {
@@ -213,11 +213,11 @@ in {
 
     the_Det = {
       s = table {
-        Yes => table {
+        True => table {
           Utr => "den" ;
           Neutr => "det"
         } ;
-        No => table { _ => [] }
+        False => table { _ => [] }
       } ;
       n = Sg ;
       sp = Def
@@ -225,8 +225,8 @@ in {
 
     thePl_Det = {
       s = table {
-        Yes => table { _ => "de" } ;
-        No => table { _ => [] }
+        True => table { _ => "de" } ;
+        False => table { _ => [] }
       } ;
       n = Pl ;
       sp = Def
@@ -240,7 +240,7 @@ in {
 
     UseN n = {
       s = n ;
-      hasComp = No
+      hasComp = False
     };
 
     AdjCN ap cn = {
@@ -252,7 +252,7 @@ in {
           }
         } ;
       } ;
-      hasComp = Yes
+      hasComp = True
     } ;
 
 -- Adjective
@@ -282,42 +282,42 @@ in {
 
     i_Pron = {
       s = table {Nom => "jag" ; Obj => "mig"} ;
-      a = Agr Sg Def Utr
+      a = AgrAdj Sg Def Utr
     } ;
    youSg_Pron = {
       s = table {Nom => "du" ; Obj => "dig"} ;
-      a = Agr Sg Def Utr
+      a = AgrAdj Sg Def Utr
     } ;
     he_Pron = {
       s = table {Nom => "han" ; Obj => "honom"} ;
-      a = Agr Sg Def Utr
+      a = AgrAdj Sg Def Utr
     } ;
     she_Pron = {
       s = table {Nom => "hon" ; Obj => "henne"} ;
-      a = Agr Sg Def Utr
+      a = AgrAdj Sg Def Utr
     } ;
     we_Pron = {
       s = table {Nom => "vi" ; Obj => "oss"} ;
-      a = Agr Pl Def Utr
+      a = AgrAdj Pl Def Utr
     } ;
     youPl_Pron = {
       s = table {Nom => "ni" ; Obj => "er"} ;
-      a = Agr Pl Def Utr
+      a = AgrAdj Pl Def Utr
     } ;
     they_Pron = {
       s = table {Nom => "de" ; Obj => "dem"} ;
-      a = Agr Pl Def Utr
+      a = AgrAdj Pl Def Utr
     } ;
 
     whoSg_IP = {
       s = table {_ => "vem"} ;
-      a = Agr Pl Def Utr
+      a = AgrAdj Pl Def Utr
     } ;
 
     where_IAdv = {s = "var"} ;
     why_IAdv = {s = "varför"} ;
 
     have_V2 = mkVerb "ha" "har" "hade" "haft" "ha"  ** {c = []} ;
-    want_VV = mkVerb "vilja" "vill" "ville" "velat" "vet"  ** {c = []} ;
+    want_VV = mkVerb "vilja" "vill" "ville" "velat" "vill"  ** {c = []} ;
 
 }

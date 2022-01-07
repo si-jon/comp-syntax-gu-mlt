@@ -1,0 +1,6 @@
+UseCl, UseQCl, ImpVP {"inte"} PART advmod head
+UseComp {"är" "var" "varit" "var","vara"} AUX cop head
+PredVP, QuestVP {"har","hade","haft","ha"} AUX aux head
+ImpVP AUX aux head
+ComplVS {"det"} SCONJ mark ccomp
+ComplVV {"att"} PART mark xcomp
