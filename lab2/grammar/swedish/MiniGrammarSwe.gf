@@ -22,7 +22,7 @@ in {
     Cl = {   -- word order is fixed in S and QS
       subj : Str ;                             -- subject
       verb : Bool => Bool => {fin,inf : Str} ; -- dep. on Pol,Temp, e.g. "does","sleep"
-      compl : Str                              -- after verb: complement, adverbs
+      complStr : Str                              -- after verb: complement, adverbs
       } ;
 
 -- question clause
@@ -77,7 +77,7 @@ in {
         s = pol.s ++ temp.s ++  --- needed for parsing: a GF hack
         cl.subj ++
         verborder ++
-        cl.compl
+        cl.complStr
       } ;
 
     UseQCl temp pol qcl =
@@ -110,12 +110,12 @@ in {
       in {
         s = pol.s ++ temp.s ++
         verbsubjorder ++
-	      qcl.compl                -- öl
+	      qcl.complStr                -- öl
       } ;
 
     PredVP np vp = {
       subj = np.s ! Nom ;
-      compl = vp.compl.s ! AgrVerb ;
+      complStr = vp.compl.s ! np.a ; -- Antingen adjective, verb, adverb, string
       verb = \\plain,isPres => case <vp.verb.isAux, plain, isPres> of {
 
         <False, _, True> => {fin = []; inf = vp.verb.s ! VF Pres} ;
@@ -130,8 +130,8 @@ in {
 
     ImpVP vp = {
       s = table {
-        True  => vp.verb.s ! VF Imperativ ++ vp.compl.s ! AgrVerb;
-        False => vp.verb.s ! VF Imperativ ++ "inte" ++ vp.compl.s ! AgrVerb
+        True  => vp.verb.s ! VF Imperativ ++ vp.compl.s ! defaultAgr;
+        False => vp.verb.s ! VF Imperativ ++ "inte" ++ vp.compl.s ! defaultAgr
       }
     } ;
 
@@ -179,19 +179,19 @@ in {
 -- Noun
     DetCN det cn = {
       s = \\c => det.s ! cn.hasComp ! cn.s.g ++ cn.s.s ! det.n ! det.sp ;
-      a = AgrAdj det.n det.sp cn.s.g
+      a = Agr det.n det.sp cn.s.g
     } ;
 
     UsePN pn = {
       s = \\_ => pn.s ;
-      a = AgrAdj Sg Def Utr
+      a = Agr Sg Def Utr
     } ;
 
     UsePron p = p ;
 
     MassNP cn = {
       s = \\_ => cn.s.s ! Sg ! Def ;
-      a = AgrAdj Sg Def Utr
+      a = Agr Sg Def Utr
     } ;
 
     a_Det = {
@@ -282,36 +282,36 @@ in {
 
     i_Pron = {
       s = table {Nom => "jag" ; Obj => "mig"} ;
-      a = AgrAdj Sg Def Utr
+      a = Agr Sg Def Utr
     } ;
    youSg_Pron = {
       s = table {Nom => "du" ; Obj => "dig"} ;
-      a = AgrAdj Sg Def Utr
+      a = Agr Sg Def Utr
     } ;
     he_Pron = {
       s = table {Nom => "han" ; Obj => "honom"} ;
-      a = AgrAdj Sg Def Utr
+      a = Agr Sg Def Utr
     } ;
     she_Pron = {
       s = table {Nom => "hon" ; Obj => "henne"} ;
-      a = AgrAdj Sg Def Utr
+      a = Agr Sg Def Utr
     } ;
     we_Pron = {
       s = table {Nom => "vi" ; Obj => "oss"} ;
-      a = AgrAdj Pl Def Utr
+      a = Agr Pl Def Utr
     } ;
     youPl_Pron = {
       s = table {Nom => "ni" ; Obj => "er"} ;
-      a = AgrAdj Pl Def Utr
+      a = Agr Pl Def Utr
     } ;
     they_Pron = {
       s = table {Nom => "de" ; Obj => "dem"} ;
-      a = AgrAdj Pl Def Utr
+      a = Agr Pl Def Utr
     } ;
 
     whoSg_IP = {
       s = table {_ => "vem"} ;
-      a = AgrAdj Pl Def Utr
+      a = Agr Pl Def Utr
     } ;
 
     where_IAdv = {s = "var"} ;

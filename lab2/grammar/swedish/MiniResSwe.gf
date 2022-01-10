@@ -10,7 +10,7 @@ resource MiniResSwe = open Prelude in {
     VForm = Inf | Pres | Pret | Supine | Imperativ ;
     HasComp = Yes | No ;
 
-    Agreement = AgrAdj Number Species Gender | AgrVerb ;
+    Agreement = Agr Number Species Gender ;
 
   oper
     -- Noun
@@ -92,10 +92,9 @@ resource MiniResSwe = open Prelude in {
     -- Complement
     Complement : Type = {s : Agreement => Str} ;
 
-    adj2comp : Adjective -> Complement = \a -> {
+    adj2comp : Adjective -> Complement = \adj -> {
         s = table { 
-          AgrAdj num spec gen => a.s ! num ! Indef ! gen ;
-          AgrVerb => []
+          Agr num spec gen => adj.s ! num ! Indef ! gen
         }
     } ;
 
@@ -105,10 +104,11 @@ resource MiniResSwe = open Prelude in {
 
     add2comp : Complement -> Str -> Complement = \comp, str -> {
       s = table { 
-        AgrAdj num spec gen => comp.s ! AgrAdj num spec gen ++ str ;
-        AgrVerb => []
+        Agr num spec gen => comp.s ! Agr num spec gen ++ str
       }
     } ;
+
+    defaultAgr : Agreement = Agr Sg Def Utr ;
     
 -- generalized verb, here just "be"
   param
@@ -136,10 +136,7 @@ resource MiniResSwe = open Prelude in {
     } ;
 
     gv2comp : GVerb -> Complement = \v -> {
-        s = table {
-          AgrVerb => v.s ! VF Inf ;
-          AgrAdj _ _ _ => []
-        }
+        s = \\_ => v.s ! VF Inf
     } ;
 
 }
